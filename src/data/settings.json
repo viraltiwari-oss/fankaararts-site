@@ -19,7 +19,7 @@
   "whatsappMessage": "Namaste! I found Fankaar's website and would like to know more about classes.",
   "tracking": {
     "gtmId": "",
-    "ga4Id": "",
+    "ga4Id": "<!-- Google tag (gtag.js) --> <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-T5FWJMR57D\"></script> <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());    gtag('config', 'G-T5FWJMR57D'); </script>",
     "metaPixelId": "",
     "googleAdsId": "",
     "gscVerification": ""
