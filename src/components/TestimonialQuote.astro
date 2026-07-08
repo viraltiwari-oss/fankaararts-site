@@ -1,0 +1,55 @@
+---
+/** Aditi-style editorial quote block (spec §4.1). */
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  testimonial: CollectionEntry<'testimonials'>;
+}
+const { testimonial } = Astro.props;
+const { data } = testimonial;
+---
+
+<figure class="quote reveal">
+  <svg class="quote__mark" viewBox="0 0 48 36" width="48" height="36" fill="none" aria-hidden="true">
+    <path d="M20 4C11 8 6 15 6 24c0 5 3.4 8 7.6 8 4 0 7-2.9 7-6.8 0-3.7-2.6-6.4-6.2-6.4-.7 0-1.5.1-1.9.3C13.6 13.9 17 9.6 22 6.8L20 4Zm22 0c-9 4-14 11-14 20 0 5 3.4 8 7.6 8 4 0 7-2.9 7-6.8 0-3.7-2.6-6.4-6.2-6.4-.7 0-1.5.1-1.9.3C35.6 13.9 39 9.6 44 6.8L42 4Z" fill="#E66F67"/>
+  </svg>
+  <blockquote>
+    <p>{data.quote}</p>
+  </blockquote>
+  <figcaption>
+    <strong>{data.person}</strong>
+    {data.role && <span> · {data.role}</span>}
+  </figcaption>
+</figure>
+
+<style>
+  .quote {
+    max-width: 46rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .quote__mark {
+    margin-inline: auto;
+    margin-bottom: var(--space-4);
+  }
+
+  .quote blockquote {
+    margin: 0 0 var(--space-4);
+  }
+
+  .quote blockquote p {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .quote figcaption {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+</style>

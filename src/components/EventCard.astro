@@ -1,0 +1,69 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CmsImage from './CmsImage.astro';
+import { formatDate } from '../lib/site';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+  revealDelay?: number;
+}
+const { event, revealDelay = 0 } = Astro.props;
+const { data } = event;
+---
+
+<a
+  href={`/events/${event.id}`}
+  class="card event-card reveal"
+  data-reveal-delay={revealDelay || undefined}
+  data-year={data.date.getFullYear()}
+>
+  <div class="event-card__media">
+    <CmsImage
+      src={data.cover || data.gallery[0]}
+      alt={data.title}
+      ratio="4/3"
+      sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+      placeholderLabel="Photos coming soon"
+    />
+  </div>
+  <div class="card__body">
+    <p class="event-card__meta">
+      <span class="chip">{data.type}</span>
+      <time datetime={data.date.toISOString().split('T')[0]}>{formatDate(data.date)}</time>
+    </p>
+    <h3>{data.title}</h3>
+    <span class="event-card__link">View gallery →</span>
+  </div>
+</a>
+
+<style>
+  .event-card {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .event-card__media {
+    overflow: hidden;
+  }
+
+  .event-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .event-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+
+  .event-card__link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--coral-deep);
+  }
+</style>

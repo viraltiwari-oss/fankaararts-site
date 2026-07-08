@@ -1,0 +1,55 @@
+---
+/**
+ * Renders a CMS-managed image through Astro's build-time pipeline (§7):
+ * any upload in src/assets/uploads/ is auto-resized, converted to
+ * WebP/AVIF and given responsive srcset sizes. Falls back to the branded
+ * placeholder when the path is empty or not found.
+ */
+import { Image } from 'astro:assets';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Props {
+  src?: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  ratio?: string; // e.g. "4/3" — used by the placeholder + CSS aspect
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  placeholderLabel?: string;
+}
+
+const {
+  src,
+  alt,
+  widths = [400, 800, 1200, 1600],
+  sizes = '(max-width: 768px) 100vw, 50vw',
+  ratio = '4/3',
+  class: className = '',
+  loading = 'lazy',
+  placeholderLabel,
+} = Astro.props;
+
+const uploads = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/uploads/**/*.{jpeg,jpg,png,gif,webp,avif,JPEG,JPG,PNG}'
+);
+
+// CMS stores paths as /src/assets/uploads/<file>
+const normalized = src?.startsWith('/') ? src : src ? `/${src}` : '';
+const loader = normalized ? uploads[normalized] : undefined;
+const resolved = loader ? (await loader()).default : undefined;
+---
+
+{resolved ? (
+  <Image
+    src={resolved}
+    alt={alt}
+    widths={widths}
+    sizes={sizes}
+    class={className}
+    loading={loading}
+    style={`aspect-ratio: ${ratio}; object-fit: cover; width: 100%;`}
+  />
+) : (
+  <ImagePlaceholder ratio={ratio} label={placeholderLabel} class={className} />
+)}

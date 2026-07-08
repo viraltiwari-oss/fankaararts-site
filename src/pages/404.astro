@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { waLink } from '../lib/site';
+---
+
+<BaseLayout
+  title="Page not found | Fankaar Institute of Performing Arts"
+  description="The page you're looking for could not be found."
+  noindex
+>
+  <section class="band band--blush error-band">
+    <div class="container container--narrow text-center">
+      <p class="eyebrow">404</p>
+      <h1>This page has stepped off the stage</h1>
+      <p class="lead" style="margin-inline:auto;">
+        The page you're looking for isn't here. Let's get you back to
+        something useful.
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn--primary">Back to home</a>
+        <a href="/courses" class="btn btn--ghost">Explore courses</a>
+        <a href={waLink()} class="btn btn--ghost" data-track="whatsapp" target="_blank" rel="noopener">WhatsApp us</a>
+      </div>
+      <nav class="error-links" aria-label="Helpful links">
+        <a href="/branches">Branches</a>
+        <a href="/workshops">Workshops</a>
+        <a href="/events">Events</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-band {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .error-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+    margin-top: var(--space-5);
+  }
+
+  .error-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+</style>

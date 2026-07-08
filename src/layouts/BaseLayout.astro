@@ -1,0 +1,220 @@
+---
+/**
+ * Base layout: fonts, global styles, SEO head, schema.org, consent-gated
+ * analytics (GTM → GA4/Ads/Pixel), header/footer, WhatsApp float,
+ * reveal-on-scroll. Every page uses this.
+ */
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/mukta/400.css';
+import '@fontsource/mukta/500.css';
+import '@fontsource/mukta/600.css';
+import '../styles/global.css';
+
+import Seo from '../components/Seo.astro';
+import SchemaLd from '../components/SchemaLd.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { orgSchema } from '../lib/schema';
+import { settings } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: string;
+  schema?: object | object[];
+}
+
+const { title, description, ogImage, ogType, noindex, publishedTime, schema } =
+  Astro.props;
+
+const { gtmId, ga4Id, metaPixelId } = settings.tracking;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#ffffff" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+
+    <Seo
+      {title}
+      {description}
+      {ogImage}
+      {ogType}
+      {noindex}
+      {publishedTime}
+    />
+    <SchemaLd schema={orgSchema()} />
+    {schema && <SchemaLd {schema} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    {/* ------- Consent Mode defaults + consent-gated tag loading (§9) ------- */}
+    <script is:inline define:vars={{ gtmId, ga4Id, metaPixelId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+      });
+
+      window.__fankaarLoadTags = function () {
+        gtag('consent', 'update', {
+          ad_storage: 'granted',
+          ad_user_data: 'granted',
+          ad_personalization: 'granted',
+          analytics_storage: 'granted',
+        });
+        if (window.__fankaarTagsLoaded) return;
+        window.__fankaarTagsLoaded = true;
+
+        if (gtmId) {
+          // GTM is the hub: configure GA4 / Ads / Pixel inside the container.
+          dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+          document.head.appendChild(s);
+        } else if (ga4Id) {
+          // Direct GA4 fallback until a GTM container exists.
+          var g = document.createElement('script');
+          g.async = true;
+          g.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+          document.head.appendChild(g);
+          gtag('js', new Date());
+          gtag('config', ga4Id);
+        }
+
+        if (metaPixelId && !gtmId) {
+          // Direct Pixel fallback (when GTM exists, fire the Pixel from GTM
+          // instead, to avoid double-counting).
+          !(function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+              n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
+            s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+          })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', metaPixelId);
+          fbq('track', 'PageView');
+        }
+      };
+
+      var consent = null;
+      try { consent = localStorage.getItem('fankaar-consent'); } catch (e) {}
+      if (consent === 'granted') window.__fankaarLoadTags();
+    </script>
+  </head>
+
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFloat />
+    <ConsentBanner />
+
+    {/* ---------- Consent banner + conversion event wiring ---------- */}
+    <script is:inline>
+      (function () {
+        var banner = document.getElementById('consent-banner');
+        var stored = null;
+        try { stored = localStorage.getItem('fankaar-consent'); } catch (e) {}
+        if (banner && !stored) banner.hidden = false;
+
+        function choose(value) {
+          try { localStorage.setItem('fankaar-consent', value); } catch (e) {}
+          if (banner) banner.hidden = true;
+          if (value === 'granted' && window.__fankaarLoadTags) window.__fankaarLoadTags();
+        }
+        document.getElementById('consent-accept')?.addEventListener('click', function () { choose('granted'); });
+        document.getElementById('consent-decline')?.addEventListener('click', function () { choose('denied'); });
+
+        // Conversion events (§9): Contact = WhatsApp click, WorkshopRegister.
+        document.addEventListener('click', function (e) {
+          var el = e.target instanceof Element ? e.target.closest('[data-track]') : null;
+          if (!el) return;
+          var kind = el.getAttribute('data-track');
+          window.dataLayer = window.dataLayer || [];
+          if (kind === 'whatsapp') {
+            window.dataLayer.push({ event: 'whatsapp_click' });
+            if (window.fbq) fbq('track', 'Contact');
+          } else if (kind === 'workshop-register') {
+            window.dataLayer.push({ event: 'workshop_register' });
+            if (window.fbq) fbq('trackCustom', 'WorkshopRegister');
+          }
+        });
+      })();
+    </script>
+
+    {/* ---------- Reveal-on-scroll + gentle image parallax (§2) ---------- */}
+    <script>
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+        // Soft parallax on opted-in imagery
+        const layers = document.querySelectorAll<HTMLElement>('[data-parallax]');
+        if (layers.length) {
+          let raf = 0;
+          const update = () => {
+            raf = 0;
+            const vh = window.innerHeight;
+            layers.forEach((el) => {
+              const r = el.getBoundingClientRect();
+              if (r.bottom < 0 || r.top > vh) return;
+              const progress = (r.top + r.height / 2 - vh / 2) / vh;
+              el.style.transform = `translateY(${(progress * -14).toFixed(2)}px)`;
+            });
+          };
+          window.addEventListener(
+            'scroll',
+            () => { if (!raf) raf = requestAnimationFrame(update); },
+            { passive: true }
+          );
+          update();
+        }
+      } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+</style>

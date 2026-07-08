@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostCard from '../../components/PostCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Blog — Kathak, Music & Learning | Fankaar Institute, Jaipur"
+  description="Guides and reflections on Kathak, Hindustani classical music, exams and learning from Fankaar Institute of Performing Arts, Jaipur. Written for students and parents."
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }]} />
+      <div class="section-head">
+        <p class="eyebrow">Journal</p>
+        <h1>From the studio</h1>
+        <p class="lead">
+          Guides for parents, notes for students, and reflections on the arts
+          we teach — written by the people who teach them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      {posts.length > 0 ? (
+        <div class="grid grid--3">
+          {posts.map((post, i) => (
+            <PostCard post={post} revealDelay={i % 3} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center lead" style="margin-inline:auto;">First articles coming soon.</p>
+      )}
+    </div>
+  </section>
+
+  <CtaBand heading="Questions we didn't answer?" text="Ask us anything about learning Kathak or music — we love a curious beginner." />
+</BaseLayout>

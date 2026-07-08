@@ -1,0 +1,154 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CmsImage from '../../components/CmsImage.astro';
+import PostCard from '../../components/PostCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { articleSchema } from '../../lib/schema';
+import { formatDate, waLink } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { data } = post;
+const { Content } = await render(post);
+const path = `/blog/${post.id}`;
+
+const related = (await getCollection('blog'))
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const schema = articleSchema(
+  { title: data.title, excerpt: data.excerpt, date: data.date, updated: data.updated, author: data.author, image: data.cover },
+  path
+);
+
+const shareUrl = new URL(path, 'https://fankaararts.com').href;
+---
+
+<BaseLayout
+  title={data.seo?.title ?? `${data.title} | Fankaar Blog`}
+  description={data.seo?.description ?? data.excerpt}
+  ogImage={data.cover || undefined}
+  ogType="article"
+  publishedTime={data.date.toISOString()}
+  schema={schema}
+>
+  <article>
+    <header class="band band--blush post-hero">
+      <div class="container container--narrow">
+        <Breadcrumbs
+          items={[
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+            { name: data.title, path },
+          ]}
+        />
+        <p class="post-hero__meta">
+          <span class="chip">{data.category}</span>
+          <time datetime={data.date.toISOString().split('T')[0]}>{formatDate(data.date)}</time>
+          <span>· by {data.author}</span>
+        </p>
+        <h1>{data.title}</h1>
+        <p class="post-hero__excerpt">{data.excerpt}</p>
+      </div>
+    </header>
+
+    {data.cover && (
+      <div class="container container--narrow post-cover">
+        <CmsImage src={data.cover} alt={data.coverAlt ?? data.title} ratio="16/9" widths={[640, 1024, 1440]} sizes="(max-width: 768px) 100vw, 46rem" loading="eager" />
+      </div>
+    )}
+
+    <div class="band">
+      <div class="container container--narrow">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <div class="post-share">
+          <span>Share:</span>
+          <a href={`https://wa.me/?text=${encodeURIComponent(data.title + ' ' + shareUrl)}`} target="_blank" rel="noopener">WhatsApp</a>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(data.title)}`} target="_blank" rel="noopener">X</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="band band--blush">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Keep reading</p>
+          <h2>Related articles</h2>
+        </div>
+        <div class="grid grid--3">
+          {related.map((p, i) => (
+            <PostCard post={p} revealDelay={i % 3} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand heading="Turn reading into doing" text="Book a first class in the discipline you just read about." />
+</BaseLayout>
+
+<style>
+  .post-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .post-hero h1 {
+    max-width: 24ch;
+  }
+
+  .post-hero__excerpt {
+    font-size: var(--text-lg);
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .post-cover {
+    margin-top: calc(-1 * var(--band) / 2);
+    position: relative;
+    z-index: 2;
+  }
+
+  .post-cover :global(img) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .post-share {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .post-share span {
+    color: var(--ink-soft);
+  }
+</style>

@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "headline": "Discover the fankaar within.",
+    "highlightWord": "fankaar",
+    "subtext": "Authentic Kathak & Hindustani classical music, for every age — across Jaipur & online.",
+    "videoUrl": "",
+    "image": "",
+    "imageAlt": "Kathak dancer mid-spin at a Fankaar recital",
+    "ctaPrimary": { "label": "Enquire on WhatsApp", "type": "whatsapp" },
+    "ctaSecondary": { "label": "Explore courses", "url": "/courses" }
+  },
+  "stats": [
+    { "value": "20+", "label": "Years of teaching legacy" },
+    { "value": "175+", "label": "Students trained" },
+    { "value": "3", "label": "CCRT scholars" },
+    { "value": "4", "label": "Branches across Jaipur" }
+  ],
+  "intro": {
+    "eyebrow": "Welcome to Fankaar",
+    "heading": "A gharana of learning in the heart of Jaipur",
+    "text": "Fankaar — the word itself means artist. Founded by Kathak exponent Vartika Tiwari, our institute carries the guru-shishya tradition into modern Jaipur: rigorous, joyful training in Kathak and Hindustani classical music for students from six to seventy. Whether your child is taking a first step onto the dance floor or you are returning to a long-held dream, there is a place for you here.",
+    "ctaLabel": "Our story",
+    "ctaUrl": "/about"
+  }
+}

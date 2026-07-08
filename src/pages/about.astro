@@ -1,0 +1,191 @@
+---
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CmsImage from '../components/CmsImage.astro';
+import MotifDivider from '../components/MotifDivider.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import about from '../data/about.json';
+
+const faculty = (await getCollection('faculty')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const facultyRendered = await Promise.all(
+  faculty.map(async (member) => ({ member, rendered: await render(member) }))
+);
+---
+
+<BaseLayout
+  title="About Us — Our Story & Faculty | Fankaar Institute, Jaipur"
+  description="The story of Fankaar Institute of Performing Arts, Jaipur — founded by Kathak exponent Vartika Tiwari (20+ years). Guru-shishya mentorship, 175+ students, 3 CCRT scholars, 4 branches."
+>
+  <section class="band about-hero band--blush">
+    <div class="container container--narrow text-center">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About us', path: '/about' }]} />
+      <p class="eyebrow">About Fankaar</p>
+      <h1>{about.heroHeading}</h1>
+      <p class="lead" style="margin-inline:auto;">{about.heroSub}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container container--narrow reveal">
+      <h2>Our story</h2>
+      {about.story.map((para) => <p class="about-para">{para}</p>)}
+    </div>
+  </section>
+
+  <section class="band band--ink">
+    <div class="container container--narrow text-center reveal">
+      <p class="eyebrow">Our mission</p>
+      <p class="mission-text">“{about.mission}”</p>
+      <MotifDivider />
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      <div class="founder reveal">
+        <div class="founder__media">
+          <CmsImage
+            src={about.founder.photo}
+            alt={`${about.founder.name}, founder of Fankaar`}
+            ratio="4/5"
+            sizes="(max-width: 860px) 100vw, 40vw"
+            placeholderLabel="Founder portrait — photo coming soon"
+          />
+        </div>
+        <div>
+          <p class="eyebrow">The founder</p>
+          <h2>{about.founder.name}</h2>
+          <p class="founder__role">{about.founder.role}</p>
+          <p>{about.founder.bio}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--blush">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <p class="eyebrow">How we teach</p>
+        <h2>The Fankaar approach</h2>
+      </div>
+      <div class="grid grid--3">
+        {about.approach.map((item, i) => (
+          <div class="card approach-card reveal" data-reveal-delay={i || undefined}>
+            <div class="card__body">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Faculty</p>
+        <h2>The gurus</h2>
+      </div>
+      <div class="grid grid--3">
+        {facultyRendered.map(({ member, rendered }, i) => (
+          <article class="card faculty-card reveal" data-reveal-delay={i || undefined}>
+            <div class="faculty-card__media">
+              <CmsImage
+                src={member.data.photo}
+                alt={member.data.name}
+                ratio="1/1"
+                sizes="(max-width: 640px) 100vw, 33vw"
+                placeholderLabel="Portrait coming soon"
+              />
+            </div>
+            <div class="card__body">
+              <h3>{member.data.name}</h3>
+              <p class="faculty-card__role">{member.data.role}</p>
+              <div class="faculty-card__bio">
+                <rendered.Content />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Come meet us"
+    text="Visit any branch, watch a class in progress, and see the approach for yourself — no obligation."
+  />
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding-block: var(--space-8);
+  }
+
+  .about-para {
+    font-size: var(--text-lg);
+    line-height: 1.75;
+  }
+
+  .mission-text {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--blush);
+    margin-bottom: var(--space-4);
+  }
+
+  .founder {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .founder {
+      grid-template-columns: 2fr 3fr;
+      gap: var(--space-8);
+    }
+  }
+
+  .founder__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 26rem;
+  }
+
+  .founder__role {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral-deep);
+    margin-bottom: var(--space-4);
+  }
+
+  .approach-card h3 {
+    color: var(--coral-deep);
+  }
+
+  .faculty-card__media {
+    overflow: hidden;
+  }
+
+  .faculty-card__role {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--coral-deep);
+    margin-bottom: var(--space-3);
+  }
+
+  .faculty-card__bio {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+</style>

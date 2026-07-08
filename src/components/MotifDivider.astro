@@ -1,0 +1,35 @@
+---
+/**
+ * Brand motif divider — pearl-dot arc with a central paisley leaf
+ * (from the logo's emblem language). Decorative only.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`motif-divider ${className}`} aria-hidden="true">
+  <svg viewBox="0 0 220 28" width="220" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="18" r="2.4" fill="#E66F67" opacity="0.45" />
+    <circle cx="38" cy="14" r="2.8" fill="#E66F67" opacity="0.6" />
+    <circle cx="66" cy="11" r="3.2" fill="#E66F67" opacity="0.8" />
+    <path
+      d="M110 3c7.5 0 13 5.2 13 11 0 5.5-4.8 10-11 10-4.9 0-8.9-3.4-8.9-7.8 0-3.5 2.8-6.2 6.2-6.2 2.7 0 4.7 1.9 4.7 4.3 0 1.9-1.4 3.3-3.2 3.3"
+      stroke="#AF554F"
+      stroke-width="1.6"
+      stroke-linecap="round"
+    />
+    <circle cx="154" cy="11" r="3.2" fill="#E66F67" opacity="0.8" />
+    <circle cx="182" cy="14" r="2.8" fill="#E66F67" opacity="0.6" />
+    <circle cx="210" cy="18" r="2.4" fill="#E66F67" opacity="0.45" />
+  </svg>
+</div>
+
+<style>
+  .motif-divider {
+    display: flex;
+    justify-content: center;
+    margin-block: var(--space-5);
+  }
+</style>

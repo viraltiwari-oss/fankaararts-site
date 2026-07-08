@@ -1,0 +1,53 @@
+---
+/**
+ * Per-page SEO (spec §8): title, description, canonical, Open Graph,
+ * Twitter cards, optional noindex + article metadata.
+ */
+import { settings, absoluteUrl } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = settings.defaultOgImage,
+  ogType = 'website',
+  noindex = false,
+  publishedTime,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', settings.domain).href;
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:site_name" content={settings.siteName} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageAbs} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_IN" />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageAbs} />
+
+{settings.tracking.gscVerification && (
+  <meta name="google-site-verification" content={settings.tracking.gscVerification} />
+)}

@@ -1,0 +1,85 @@
+---
+/** Trust strip / stat counters — counts up on scroll (reduced-motion safe). */
+interface Props {
+  stats: { value: string; label: string }[];
+  class?: string;
+}
+const { stats, class: className = '' } = Astro.props;
+---
+
+<div class={`stat-strip ${className}`}>
+  {stats.map((s, i) => (
+    <div class="stat-strip__item reveal" data-reveal-delay={i > 0 ? Math.min(i, 3) : undefined}>
+      <span class="stat-strip__value" data-count={s.value}>{s.value}</span>
+      <span class="stat-strip__label">{s.label}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-4);
+    text-align: center;
+  }
+
+  @media (min-width: 800px) {
+    .stat-strip {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stat-strip__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .stat-strip__value {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--coral-deep);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-strip__label {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduced && 'IntersectionObserver' in window) {
+    const els = document.querySelectorAll<HTMLElement>('.stat-strip__value');
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          io.unobserve(entry.target);
+          const el = entry.target as HTMLElement;
+          const raw = el.dataset.count ?? '';
+          const num = parseInt(raw.replace(/\D/g, ''), 10);
+          const suffix = raw.replace(/[\d,]/g, '');
+          if (!Number.isFinite(num) || num === 0) continue;
+          const dur = 1100;
+          const t0 = performance.now();
+          const tick = (t: number) => {
+            const p = Math.min((t - t0) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = `${Math.round(num * eased)}${suffix}`;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    els.forEach((el) => io.observe(el));
+  }
+</script>

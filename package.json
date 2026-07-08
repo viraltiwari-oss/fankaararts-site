@@ -1,0 +1,19 @@
+{
+  "name": "fankaararts-website",
+  "version": "1.0.0",
+  "description": "Fankaar Institute of Performing Arts — immersive static website (Astro + Sveltia CMS + Cloudflare Pages)",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
+    "@fontsource/cormorant-garamond": "^5.2.5",
+    "@fontsource/mukta": "^5.2.5",
+    "astro": "^5.7.0",
+    "sharp": "^0.33.5"
+  }
+}

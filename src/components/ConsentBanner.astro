@@ -1,0 +1,48 @@
+---
+/** Cookie/consent notice with Google Consent Mode (spec §9). */
+---
+
+<div class="consent" id="consent-banner" hidden role="region" aria-label="Cookie consent">
+  <p>
+    We use cookies for analytics and to measure enquiries, so we can serve
+    students better. See our <a href="/privacy">privacy policy</a>.
+  </p>
+  <div class="consent__actions">
+    <button class="btn btn--primary" id="consent-accept">Accept</button>
+    <button class="btn btn--ghost" id="consent-decline">Decline</button>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed;
+    left: 50%;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: 110;
+    width: min(94vw, 34rem);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .consent p {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .consent__actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .consent .btn {
+    min-height: 2.6rem;
+    padding: 0.4rem 1.3rem;
+    font-size: var(--text-sm);
+  }
+</style>

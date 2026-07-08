@@ -1,0 +1,82 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CmsImage from './CmsImage.astro';
+import { formatDate, waLink } from '../lib/site';
+
+interface Props {
+  workshop: CollectionEntry<'workshops'>;
+  past?: boolean;
+  revealDelay?: number;
+}
+const { workshop, past = false, revealDelay = 0 } = Astro.props;
+const { data } = workshop;
+const registerHref =
+  data.registrationUrl ||
+  waLink(`Namaste! I'd like to register for the workshop: ${data.title}`);
+const isExternalReg = Boolean(data.registrationUrl);
+---
+
+<article class:list={['card', 'workshop-card', 'reveal', { 'workshop-card--past': past }]} data-reveal-delay={revealDelay || undefined}>
+  <div class="workshop-card__media">
+    <CmsImage
+      src={data.image}
+      alt={data.title}
+      ratio="16/9"
+      sizes="(max-width: 640px) 100vw, 50vw"
+      placeholderLabel="Workshop"
+    />
+  </div>
+  <div class="card__body">
+    <p class="workshop-card__meta">
+      <span class="chip">{data.mode}</span>
+      <time datetime={data.start.toISOString().split('T')[0]}>
+        {formatDate(data.start)}{data.end && ` – ${formatDate(data.end)}`}
+      </time>
+    </p>
+    <h3>{data.title}</h3>
+    {data.venue && <p class="workshop-card__venue">{data.venue}</p>}
+    <p class="workshop-card__fee">Fee: {data.fee}</p>
+    {!past && (
+      <a
+        href={registerHref}
+        class="btn btn--primary"
+        data-track="workshop-register"
+        target="_blank"
+        rel="noopener"
+      >
+        {isExternalReg ? 'Register' : 'Register on WhatsApp'}
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .workshop-card--past {
+    opacity: 0.85;
+  }
+
+  .workshop-card__media {
+    overflow: hidden;
+  }
+
+  .workshop-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .workshop-card__venue {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-1);
+  }
+
+  .workshop-card__fee {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+</style>

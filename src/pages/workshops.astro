@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import WorkshopCard from '../components/WorkshopCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SchemaLd from '../components/SchemaLd.astro';
+import { eventSchema } from '../lib/schema';
+import { isUpcoming, waLink } from '../lib/site';
+
+const all = await getCollection('workshops');
+const upcoming = all
+  .filter((w) => isUpcoming(w.data.start, w.data.end))
+  .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+const past = all
+  .filter((w) => !isUpcoming(w.data.start, w.data.end))
+  .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+
+const schema = upcoming.map((w) =>
+  eventSchema(
+    {
+      title: w.data.title,
+      date: w.data.start,
+      endDate: w.data.end,
+      description: w.body,
+      online: w.data.mode === 'Online',
+      venue: w.data.venue,
+      image: w.data.image,
+    },
+    `/workshops`
+  )
+);
+---
+
+<BaseLayout
+  title="Upcoming Workshops | Fankaar Institute, Jaipur"
+  description="Kathak and classical music workshops at Fankaar Institute, Jaipur. See upcoming sessions and register on WhatsApp — or message us to be notified of the next one."
+  schema={schema}
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Workshops', path: '/workshops' }]} />
+      <div class="section-head">
+        <p class="eyebrow">Special sessions</p>
+        <h1>Workshops</h1>
+        <p class="lead">
+          Alongside regular classes, we run occasional intensives — guest
+          artists, exam crash-courses, seasonal recitál prep. They fill fast.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      {upcoming.length > 0 ? (
+        <div class="grid grid--3">
+          {upcoming.map((w, i) => (
+            <WorkshopCard workshop={w} revealDelay={i % 3} />
+          ))}
+        </div>
+      ) : (
+        <div class="empty-state reveal">
+          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" stroke="#E66F67" stroke-width="2" opacity="0.4"/>
+            <path d="M20 32h24M32 20v24" stroke="#E66F67" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+          <h2>No workshops scheduled right now</h2>
+          <p class="lead" style="margin-inline:auto;">
+            Message us on WhatsApp and we'll notify you the moment the next one
+            opens for registration.
+          </p>
+          <a href={waLink('Namaste! Please notify me about upcoming Fankaar workshops.')} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
+            Notify me about workshops
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {past.length > 0 && (
+    <section class="band band--blush">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Archive</p>
+          <h2>Past workshops</h2>
+        </div>
+        <div class="grid grid--3">
+          {past.map((w, i) => (
+            <WorkshopCard workshop={w} past revealDelay={i % 3} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand heading="Want a custom workshop?" text="Schools and groups can book a Kathak or music workshop with us — message us to plan one." />
+</BaseLayout>
+
+<style>
+  .empty-state {
+    max-width: 34rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .empty-state svg {
+    margin: 0 auto var(--space-4);
+  }
+
+  .empty-state .btn {
+    margin-top: var(--space-5);
+  }
+</style>

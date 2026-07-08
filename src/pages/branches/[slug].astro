@@ -1,0 +1,324 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CmsImage from '../../components/CmsImage.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { branchSchema } from '../../lib/schema';
+import { waLink, mapEmbedUrl, settings, telLink } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const branches = await getCollection('branches');
+  return branches.map((branch) => ({
+    params: { slug: branch.id },
+    props: { branch },
+  }));
+}
+
+interface Props {
+  branch: CollectionEntry<'branches'>;
+}
+const { branch } = Astro.props;
+const { data } = branch;
+const { Content } = await render(branch);
+
+const allCourses = await getCollection('courses');
+const branchCourses = data.courses
+  .map((slug) => allCourses.find((c) => c.id === slug))
+  .filter(Boolean) as CollectionEntry<'courses'>[];
+
+const allFaculty = await getCollection('faculty');
+const branchFaculty = data.faculty
+  .map((slug) => allFaculty.find((f) => f.id === slug))
+  .filter(Boolean) as CollectionEntry<'faculty'>[];
+
+const path = `/branches/${branch.id}`;
+const schema = branchSchema(
+  {
+    name: data.name,
+    headline: data.headline,
+    address: data.address,
+    online: data.online,
+    mapLink: data.mapLink,
+  },
+  path
+);
+
+const seoTitle = data.seo?.title ?? `${data.headline} | Fankaar`;
+const seoDesc =
+  data.seo?.description ??
+  `${data.headline} at Fankaar Institute of Performing Arts. Timings, address and courses. Enquire on WhatsApp.`;
+
+const waMsg = `Namaste! I'd like to enquire about classes at the ${data.name} branch.`;
+---
+
+<BaseLayout title={seoTitle} description={seoDesc} schema={schema}>
+  <section class="band band--blush branch-hero">
+    <div class="container">
+      <Breadcrumbs
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Branches', path: '/branches' },
+          { name: data.name, path },
+        ]}
+      />
+      <h1>{data.headline}</h1>
+      <div class="branch-hero__meta">
+        {!data.online && data.address && (
+          <p class="branch-hero__address">
+            <strong>Address:</strong> {data.address}
+          </p>
+        )}
+        {data.addressNote && <p class="branch-hero__note">{data.addressNote}</p>}
+        <div class="branch-hero__actions">
+          <a href={waLink(waMsg)} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
+            Enquire on WhatsApp
+          </a>
+          <a href={telLink()} class="btn btn--ghost">Call +91 {settings.phone}</a>
+          {data.mapLink && (
+            <a href={data.mapLink} class="btn btn--ghost" target="_blank" rel="noopener">
+              Get directions
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container branch-body">
+      <div class="branch-body__main reveal">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <h2>Class timings</h2>
+        <table class="timings">
+          <thead>
+            <tr><th>Course</th><th>Days</th><th>Time</th></tr>
+          </thead>
+          <tbody>
+            {data.timings.map((t) => (
+              <tr>
+                <td>{t.course}</td>
+                <td>{t.days}</td>
+                <td>{t.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="timings__note">
+          Timings can shift with the academic calendar — confirm the current
+          batch on WhatsApp before your first visit.
+        </p>
+
+        <h2>Courses at this branch</h2>
+        <ul class="branch-courses">
+          {branchCourses.map((course) => (
+            <li>
+              <a href={`/courses#${course.id}`} class="branch-courses__item">
+                <span class="branch-courses__name">{course.data.name}</span>
+                <span class="branch-courses__meta">
+                  {course.data.ageRange} · {course.data.mode}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {branchFaculty.length > 0 && (
+          <>
+            <h2>Faculty</h2>
+            <ul class="branch-faculty">
+              {branchFaculty.map((member) => (
+                <li>
+                  <strong>{member.data.name}</strong> — {member.data.role}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+
+      <aside class="branch-body__aside">
+        {!data.online && data.mapQuery && (
+          <div class="branch-map reveal">
+            <iframe
+              src={mapEmbedUrl(`Fankaar Institute of Performing Arts, ${data.mapQuery}`)}
+              title={`Map — Fankaar ${data.name} branch`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+        )}
+        <div class="branch-photos reveal">
+          {data.photos.length > 0 ? (
+            data.photos.map((photo, i) => (
+              <CmsImage
+                src={photo}
+                alt={`${data.name} branch — photo ${i + 1}`}
+                ratio="4/3"
+                sizes="(max-width: 860px) 100vw, 33vw"
+                class="branch-photos__img"
+              />
+            ))
+          ) : (
+            <CmsImage
+              alt=""
+              ratio="4/3"
+              placeholderLabel={data.online ? 'Online class stills coming soon' : 'Studio photos coming soon'}
+            />
+          )}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand
+    heading={`Join the ${data.name} ${data.online ? 'classroom' : 'branch'}`}
+    text="Message us — we'll confirm the current batch, fee and start date the same day."
+    whatsappMessage={waMsg}
+  />
+
+  {/* ViewContent conversion signal (§9) */}
+  <script is:inline define:vars={{ name: data.name }}>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'view_content', content_type: 'branch', content_name: name });
+    if (window.fbq) fbq('track', 'ViewContent', { content_type: 'branch', content_name: name });
+  </script>
+</BaseLayout>
+
+<style>
+  .branch-hero h1 {
+    max-width: 22ch;
+  }
+
+  .branch-hero__address {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+
+  .branch-hero__note {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-2);
+  }
+
+  .branch-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .branch-body {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  @media (min-width: 960px) {
+    .branch-body {
+      grid-template-columns: 3fr 2fr;
+      align-items: start;
+    }
+  }
+
+  .branch-body__main h2 {
+    margin-top: var(--space-6);
+  }
+
+  .timings {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .timings th,
+  .timings td {
+    text-align: left;
+    padding: 0.65rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .timings th {
+    background: var(--blush);
+    font-weight: 600;
+  }
+
+  .timings__note {
+    font-size: var(--text-xs);
+    color: var(--ink-soft);
+    margin-top: var(--space-2);
+  }
+
+  .branch-courses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .branch-courses__item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    background: var(--blush);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.2s var(--ease);
+  }
+
+  .branch-courses__item:hover {
+    background: var(--blush-deep);
+  }
+
+  .branch-courses__name {
+    font-weight: 600;
+  }
+
+  .branch-courses__meta {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  .branch-faculty {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .branch-faculty li {
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .branch-map {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    margin-bottom: var(--space-5);
+  }
+
+  .branch-map iframe {
+    display: block;
+    width: 100%;
+    height: 20rem;
+    border: 0;
+  }
+
+  .branch-photos {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .branch-photos :global(.branch-photos__img),
+  .branch-photos :global(.img-ph) {
+    border-radius: var(--radius-lg);
+  }
+</style>

@@ -1,0 +1,515 @@
+/* ==========================================================================
+   Fankaar Institute of Performing Arts — global design system
+   Heritage meets modern editorial. Cinematic but calm.
+   Palette balance ≈ 70% white / 20% ink / 10% coral (brand guidelines).
+   ========================================================================== */
+
+:root {
+  /* Brand colours (sampled from the logo) */
+  --coral: #e66f67;
+  --coral-deep: #af554f;
+  --ink: #1a1a1a;
+  --ink-soft: #444444;
+  --blush: #fbebe9;
+  --blush-deep: #f6dcd8;
+  --white: #ffffff;
+  --line: rgba(26, 26, 26, 0.12);
+
+  /* Type */
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Mukta', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid type scale */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  --text-xl: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.8vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.8vw, 3.5rem);
+  --text-hero: clamp(2.75rem, 1.9rem + 4.5vw, 5rem);
+
+  /* Space & rhythm */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --band: clamp(4rem, 3rem + 5vw, 7.5rem); /* vertical section padding */
+
+  --container: 72rem;
+  --container-narrow: 46rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  --radius: 0.375rem;
+  --radius-lg: 0.75rem;
+  --shadow-soft: 0 10px 40px -12px rgba(26, 26, 26, 0.16);
+  --shadow-card: 0 4px 24px -8px rgba(26, 26, 26, 0.12);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --header-h: 5rem;
+  --header-h-condensed: 3.75rem;
+
+  --wa-green: #1faa53; /* WhatsApp float only — AA-contrast-adjusted */
+}
+
+/* --------------------------------------------------------------------------
+   Reset & base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Typography — editorial rhythm
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); font-weight: 700; }
+
+p {
+  margin: 0 0 var(--space-4);
+}
+
+a {
+  color: var(--coral-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s var(--ease);
+}
+
+a:hover {
+  color: var(--coral);
+}
+
+strong { font-weight: 600; }
+
+em.brand {
+  font-style: italic;
+  color: var(--coral-deep);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--coral-deep);
+  margin-bottom: var(--space-3);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+
+.devanagari {
+  font-family: var(--font-body); /* Mukta covers Devanagari */
+}
+
+/* --------------------------------------------------------------------------
+   Layout primitives
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.band {
+  padding-block: var(--band);
+}
+
+.band--blush {
+  background: var(--blush);
+}
+
+.band--ink {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.band--ink h1,
+.band--ink h2,
+.band--ink h3 {
+  color: var(--white);
+}
+
+.band--ink a { color: var(--blush); }
+.band--ink .eyebrow { color: var(--coral); }
+
+.grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 960px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   Buttons — thumb-friendly (≥44px tap targets)
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3rem;
+  padding: 0.7rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn--primary {
+  background: var(--coral);
+  color: var(--white);
+}
+
+.btn--primary:hover {
+  background: var(--coral-deep);
+  color: var(--white);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: currentColor;
+}
+
+.btn--ghost:hover { color: var(--coral-deep); }
+
+.btn--light {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.btn--light:hover { background: var(--blush); color: var(--ink); }
+
+.btn svg { flex: none; }
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+}
+
+.card__body {
+  padding: var(--space-5);
+}
+
+/* --------------------------------------------------------------------------
+   Prose (blog posts, long-form content)
+   -------------------------------------------------------------------------- */
+.prose {
+  max-width: var(--container-narrow);
+}
+
+.prose h2 { margin-top: var(--space-7); }
+.prose h3 { margin-top: var(--space-6); }
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+  margin: 0 0 var(--space-4);
+}
+
+.prose li { margin-bottom: var(--space-2); }
+
+.prose blockquote {
+  margin: var(--space-6) 0;
+  padding: var(--space-4) var(--space-5);
+  border-left: 3px solid var(--coral);
+  background: var(--blush);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+}
+
+.prose blockquote p:last-child { margin-bottom: 0; }
+
+.prose img {
+  border-radius: var(--radius-lg);
+  margin: var(--space-5) 0;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: var(--space-7) 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  margin: var(--space-5) 0;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.prose th {
+  font-weight: 600;
+  background: var(--blush);
+}
+
+/* --------------------------------------------------------------------------
+   Forms
+   -------------------------------------------------------------------------- */
+.field {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.field__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.field__label .req { color: var(--coral-deep); }
+
+.field input[type='text'],
+.field input[type='tel'],
+.field input[type='email'],
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.65rem 0.9rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  transition: border-color 0.2s var(--ease);
+}
+
+.field textarea { min-height: 7rem; resize: vertical; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(230, 111, 103, 0.18);
+}
+
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: var(--coral-deep);
+}
+
+.checkbox {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+
+.checkbox input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  accent-color: var(--coral);
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Reveal-on-scroll — subtle fade/rise (§2). Never blocks content:
+   elements are visible by default and only animate when JS + IO exist.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.7s var(--ease);
+  }
+
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .reveal[data-reveal-delay='1'] { transition-delay: 0.08s; }
+  html.js .reveal[data-reveal-delay='2'] { transition-delay: 0.16s; }
+  html.js .reveal[data-reveal-delay='3'] { transition-delay: 0.24s; }
+
+  .parallax-img {
+    will-change: transform;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2.5px solid var(--coral-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--ink);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utilities
+   -------------------------------------------------------------------------- */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+
+.section-head {
+  max-width: 40rem;
+  margin-bottom: var(--space-7);
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.8rem;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--coral-deep);
+  background: var(--blush);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.band--blush .chip,
+.band--blush .prose th {
+  background: var(--white);
+}

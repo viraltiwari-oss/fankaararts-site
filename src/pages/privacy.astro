@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { settings, mailLink } from '../lib/site';
+
+const updated = 'July 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy | Fankaar Institute of Performing Arts"
+  description="How Fankaar Institute of Performing Arts collects, uses and protects your information."
+>
+  <section class="band band--blush">
+    <div class="container container--narrow">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Privacy policy', path: '/privacy' }]} />
+      <h1>Privacy policy</h1>
+      <p class="lead">Last updated: {updated}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container container--narrow">
+      <div class="prose">
+        <p>
+          Fankaar Institute of Performing Arts ("Fankaar", "we", "us") respects
+          your privacy. This policy explains what we collect through this website
+          and how we use it. <em>Please review this text with a legal advisor
+          before launch and adjust it to your actual practices.</em>
+        </p>
+
+        <h2>Information we collect</h2>
+        <ul>
+          <li><strong>Enquiry details</strong> you submit through our forms — name, phone number, email (if provided), the course and branch you're interested in, and your message.</li>
+          <li><strong>Usage data</strong> — if you accept cookies, we use analytics (such as Google Analytics) and advertising measurement (such as the Meta Pixel) to understand how visitors use the site. Until you accept, these are disabled by default (Google Consent Mode).</li>
+        </ul>
+
+        <h2>How we use your information</h2>
+        <ul>
+          <li>To respond to your enquiry and provide information about our classes.</li>
+          <li>To contact you (via WhatsApp, phone or email) about your enquiry and, if you opt in, about workshops and events.</li>
+          <li>To improve our website and understand which content is useful.</li>
+        </ul>
+
+        <h2>Sharing</h2>
+        <p>
+          We do not sell your personal information. We share it only with service
+          providers that help us operate the site and communicate with you (for
+          example, our form/email provider and analytics providers), and where
+          required by law.
+        </p>
+
+        <h2>Cookies &amp; analytics</h2>
+        <p>
+          You can accept or decline cookies using the banner shown on your first
+          visit. Declining keeps analytics and advertising cookies switched off.
+          You can clear cookies in your browser at any time to reset your choice.
+        </p>
+
+        <h2>Your choices</h2>
+        <p>
+          To ask what information we hold about you, or to have it corrected or
+          deleted, contact us at <a href={mailLink()}>{settings.email}</a> or
+          +91 {settings.phone}.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Fankaar Institute of Performing Arts, Jaipur, Rajasthan, India<br />
+          Email: <a href={mailLink()}>{settings.email}</a><br />
+          Phone / WhatsApp: +91 {settings.phone}
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

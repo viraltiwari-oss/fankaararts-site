@@ -1,0 +1,147 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CmsImage from '../../components/CmsImage.astro';
+import YouTubeFacade from '../../components/YouTubeFacade.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { eventSchema } from '../../lib/schema';
+import { formatDate } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
+}
+
+interface Props {
+  event: CollectionEntry<'events'>;
+}
+const { event } = Astro.props;
+const { data } = event;
+const { Content } = await render(event);
+const path = `/events/${event.id}`;
+
+const schema = eventSchema(
+  { title: data.title, date: data.date, description: data.seo?.description, image: data.cover },
+  path
+);
+---
+
+<BaseLayout
+  title={data.seo?.title ?? `${data.title} | Fankaar Events`}
+  description={data.seo?.description ?? `${data.title} — ${data.type} at Fankaar Institute of Performing Arts, Jaipur. Photos and videos.`}
+  ogImage={data.cover || undefined}
+  schema={schema}
+>
+  <section class="band band--blush event-detail-hero">
+    <div class="container container--narrow">
+      <Breadcrumbs
+        items={[
+          { name: 'Home', path: '/' },
+          { name: 'Events', path: '/events' },
+          { name: data.title, path },
+        ]}
+      />
+      <p class="event-detail__meta">
+        <span class="chip">{data.type}</span>
+        <time datetime={data.date.toISOString().split('T')[0]}>{formatDate(data.date)}</time>
+      </p>
+      <h1>{data.title}</h1>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container container--narrow">
+      <div class="prose reveal">
+        <Content />
+      </div>
+    </div>
+
+    {data.gallery.length > 0 && (
+      <div class="container">
+        <div class="gallery">
+          {data.gallery.map((photo, i) => (
+            <figure class="gallery__item reveal" data-reveal-delay={i % 3}>
+              <CmsImage
+                src={photo}
+                alt={`${data.title} — photo ${i + 1}`}
+                ratio="4/3"
+                sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw"
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {data.videos.length > 0 && (
+      <div class="container container--narrow">
+        <h2 class="event-detail__vid-head">Watch</h2>
+        <div class="event-videos">
+          {data.videos.map((url) => (
+            <YouTubeFacade url={url} title={data.title} />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {data.placeholder && (
+      <div class="container container--narrow">
+        <p class="event-detail__ph">
+          Photos and videos from this event will be added soon.
+        </p>
+      </div>
+    )}
+  </section>
+
+  <CtaBand heading="Be part of the next one" />
+</BaseLayout>
+
+<style>
+  .event-detail__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-bottom: var(--space-3);
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 860px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery__item {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .event-detail__vid-head {
+    margin-top: var(--space-7);
+  }
+
+  .event-videos {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .event-detail__ph {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    background: var(--blush);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: var(--ink-soft);
+  }
+</style>

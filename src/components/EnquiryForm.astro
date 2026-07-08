@@ -1,0 +1,204 @@
+---
+/**
+ * Enrollment enquiry form (spec §10).
+ * - With a Web3Forms key: emails the admin + redirects to /thank-you (Lead).
+ * - Without a key (pre-launch state): the same form composes a WhatsApp
+ *   message instead, so enquiries are never lost.
+ * - Honeypot spam protection; consent checkbox; inline validation.
+ */
+import { getCollection } from 'astro:content';
+import { settings } from '../lib/site';
+import { absoluteUrl } from '../lib/site';
+
+const branches = (await getCollection('branches')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const key = settings.forms.web3formsKey;
+const hasKey = Boolean(key);
+const interests = ['Kathak', 'Hindustani Vocal', 'Guitar', 'Keyboard', 'Not sure yet'];
+---
+
+<form
+  class="enquiry-form"
+  id="enquiry-form"
+  method="POST"
+  action={hasKey ? 'https://api.web3forms.com/submit' : '#'}
+  data-mode={hasKey ? 'web3forms' : 'whatsapp'}
+  data-wa={settings.whatsapp}
+  novalidate
+>
+  {hasKey && (
+    <>
+      <input type="hidden" name="access_key" value={key} />
+      <input type="hidden" name="subject" value="New enrolment enquiry — Fankaar website" />
+      <input type="hidden" name="from_name" value="Fankaar Website" />
+      <input type="hidden" name="redirect" value={absoluteUrl('/thank-you')} />
+    </>
+  )}
+  {/* Honeypot — humans never see this */}
+  <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" />
+
+  <div class="enquiry-form__row">
+    <label class="field">
+      <span class="field__label">Name <span class="req" aria-hidden="true">*</span></span>
+      <input type="text" name="name" required autocomplete="name" placeholder="Student or parent name" />
+    </label>
+    <label class="field">
+      <span class="field__label">Phone <span class="req" aria-hidden="true">*</span></span>
+      <input type="tel" name="phone" required autocomplete="tel" inputmode="tel" pattern="[0-9+ \-()]{8,16}" placeholder="10-digit mobile" />
+    </label>
+  </div>
+
+  <label class="field">
+    <span class="field__label">Email (optional)</span>
+    <input type="email" name="email" autocomplete="email" placeholder="you@example.com" />
+  </label>
+
+  <div class="enquiry-form__row">
+    <label class="field">
+      <span class="field__label">Interested in</span>
+      <select name="interest">
+        {interests.map((i) => <option value={i}>{i}</option>)}
+      </select>
+    </label>
+    <label class="field">
+      <span class="field__label">Preferred branch</span>
+      <select name="branch">
+        {branches.map((b) => <option value={b.data.name}>{b.data.name}</option>)}
+        <option value="Not sure">Not sure</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="field">
+    <span class="field__label">Message</span>
+    <textarea name="message" placeholder="Student's age, prior experience, preferred timings…"></textarea>
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" name="consent" required />
+    <span>
+      I agree to be contacted by Fankaar about my enquiry (WhatsApp / call /
+      email). See the <a href="/privacy">privacy policy</a>. <span class="req" aria-hidden="true">*</span>
+    </span>
+  </label>
+
+  <p class="enquiry-form__error" id="form-error" hidden role="alert">
+    Please fill your name, a valid phone number, and tick the consent box.
+  </p>
+
+  <div class="enquiry-form__actions">
+    <button type="submit" class="btn btn--primary">
+      {hasKey ? 'Send enquiry' : 'Send enquiry on WhatsApp'}
+    </button>
+    {hasKey && (
+      <button type="button" class="btn btn--ghost" id="wa-compose">
+        Or send it on WhatsApp
+      </button>
+    )}
+  </div>
+
+  {!hasKey && (
+    <p class="enquiry-form__note">
+      Your enquiry opens in WhatsApp, pre-filled — just press send. (Email
+      delivery switches on automatically once the form key is added in
+      Global Settings — see the editing guide.)
+    </p>
+  )}
+</form>
+
+<style>
+  .enquiry-form {
+    max-width: 40rem;
+  }
+
+  .enquiry-form__row {
+    display: grid;
+    gap: 0 var(--space-4);
+  }
+
+  @media (min-width: 560px) {
+    .enquiry-form__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .enquiry-form .checkbox {
+    margin-block: var(--space-4);
+  }
+
+  .enquiry-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .enquiry-form__error {
+    color: var(--coral-deep);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .enquiry-form__note {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('enquiry-form') as HTMLFormElement | null;
+  const errorBox = document.getElementById('form-error');
+
+  function composeWhatsApp(f: HTMLFormElement): string {
+    const data = new FormData(f);
+    const lines = [
+      'Namaste! Enrolment enquiry from the website:',
+      `Name: ${data.get('name') || '-'}`,
+      `Phone: ${data.get('phone') || '-'}`,
+      data.get('email') ? `Email: ${data.get('email')}` : '',
+      `Interested in: ${data.get('interest') || '-'}`,
+      `Preferred branch: ${data.get('branch') || '-'}`,
+      data.get('message') ? `Message: ${data.get('message')}` : '',
+    ].filter(Boolean);
+    return `https://wa.me/${f.dataset.wa}?text=${encodeURIComponent(lines.join('\n'))}`;
+  }
+
+  function validate(f: HTMLFormElement): boolean {
+    const ok = f.checkValidity();
+    if (errorBox) errorBox.hidden = ok;
+    if (!ok) f.reportValidity();
+    return ok;
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      if (!validate(form)) {
+        e.preventDefault();
+        return;
+      }
+      if (form.dataset.mode === 'whatsapp') {
+        e.preventDefault();
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'generate_lead', method: 'whatsapp_form' });
+        // @ts-ignore
+        if (window.fbq) fbq('track', 'Lead');
+        window.open(composeWhatsApp(form), '_blank', 'noopener');
+        window.location.href = '/thank-you';
+      }
+      // web3forms mode: normal POST → Web3Forms → redirect to /thank-you,
+      // where the Lead event fires exactly once.
+    });
+
+    document.getElementById('wa-compose')?.addEventListener('click', () => {
+      if (!validate(form)) return;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'generate_lead', method: 'whatsapp_form' });
+      // @ts-ignore
+      if (window.fbq) fbq('track', 'Lead');
+      window.open(composeWhatsApp(form), '_blank', 'noopener');
+    });
+  }
+</script>

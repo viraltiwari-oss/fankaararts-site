@@ -1,0 +1,311 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CmsImage from '../components/CmsImage.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SchemaLd from '../components/SchemaLd.astro';
+import { courseSchema, faqSchema } from '../lib/schema';
+import { waLink } from '../lib/site';
+
+const courses = (await getCollection('courses')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const rendered = await Promise.all(
+  courses.map(async (course) => ({ course, body: await render(course) }))
+);
+
+const schemas = courses.map((c) =>
+  courseSchema(
+    { name: c.data.name, short: c.data.short, mode: c.data.mode, levels: c.data.levels },
+    `/courses#${c.id}`
+  )
+);
+
+const faqs = [
+  {
+    q: 'What is the youngest age you accept for classes?',
+    a: 'We take Kathak and keyboard students from age six, guitar from eight, and vocal from six. There is no upper age limit — many of our students are adults, including learners past seventy.',
+  },
+  {
+    q: 'Do I have to take examinations?',
+    a: 'No. Exams (Prarambhik, Praveshika, Visharad through Bhatkhande, Gandharva Mahavidyalaya or Rajasthan Sangeet Sansthan) are optional. Many students learn purely for the joy of the art. We recommend a path based on each student\'s goals.',
+  },
+  {
+    q: 'Can I learn online?',
+    a: 'Yes. Kathak is taught live online to students across India and abroad, and Hindustani vocal is available online on request, subject to batch availability.',
+  },
+  {
+    q: 'What are the fees?',
+    a: 'Fees depend on the course, level and branch. Message us on WhatsApp with what you\'d like to learn and we\'ll share current fees the same day.',
+  },
+];
+
+const faqSchemaData = faqSchema(faqs);
+---
+
+<BaseLayout
+  title="Courses — Kathak, Vocal, Guitar, Keyboard | Fankaar Jaipur"
+  description="Courses at Fankaar Institute, Jaipur: Kathak, Hindustani classical vocal, guitar and keyboard. Structured levels (Prarambhik, Praveshika, Visharad), ages 6–70+, online + offline. Fees on enquiry."
+  schema={[...schemas, faqSchemaData]}
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Courses', path: '/courses' }]} />
+      <div class="section-head">
+        <p class="eyebrow">What we teach</p>
+        <h1>Courses at Fankaar</h1>
+        <p class="lead">
+          Classical dance and music, taught with structure and soul — from a
+          child's first lesson to degree-level examinations.
+        </p>
+      </div>
+      <nav class="course-jump" aria-label="Jump to course">
+        {courses.map((c) => (
+          <a href={`#${c.id}`} class="chip">{c.data.name}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  {rendered.map(({ course, body }, i) => (
+    <section class:list={['band', 'course', i % 2 === 1 ? 'band--blush' : '']} id={course.id}>
+      <div class="container">
+        <div class:list={['course__grid', { 'course__grid--rev': i % 2 === 1 }]}>
+          <div class="course__media reveal">
+            <CmsImage
+              src={course.data.image}
+              alt={course.data.name}
+              ratio="4/3"
+              sizes="(max-width: 860px) 100vw, 45vw"
+              placeholderLabel={course.data.name}
+            />
+          </div>
+          <div class="course__content reveal">
+            <p class="eyebrow">{course.data.discipline}</p>
+            <h2>{course.data.name}</h2>
+            <ul class="course__facts">
+              <li><span>Ages</span>{course.data.ageRange}</li>
+              <li><span>Mode</span>{course.data.mode}</li>
+              <li><span>Fee</span>{course.data.fee}</li>
+            </ul>
+            <div class="prose course__prose">
+              <body.Content />
+            </div>
+
+            {course.data.levels.length > 0 && (
+              <div class="course__levels">
+                <h3>Levels</h3>
+                <ol>
+                  {course.data.levels.map((lvl) => (
+                    <li>
+                      <strong>{lvl.name}</strong>
+                      {lvl.detail && <span> — {lvl.detail}</span>}
+                    </li>
+                  ))}
+                </ol>
+                {course.data.levelsNote && <p class="course__note">{course.data.levelsNote}</p>}
+              </div>
+            )}
+
+            {course.data.levels.length === 0 && course.data.levelsNote && (
+              <p class="course__note">{course.data.levelsNote}</p>
+            )}
+
+            {course.data.examBoards.length > 0 && (
+              <div class="course__boards">
+                <h3>Examination boards</h3>
+                <ul>
+                  {course.data.examBoards.map((b) => <li>{b}</li>)}
+                </ul>
+              </div>
+            )}
+
+            <a
+              href={waLink(`Namaste! I'd like to know more about ${course.data.name} classes.`)}
+              class="btn btn--primary"
+              data-track="whatsapp"
+              target="_blank"
+              rel="noopener"
+            >
+              Enquire about {course.data.name}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  {/* Education block — parent-reassuring, SEO-rich (§4.4) */}
+  <section class="band band--ink">
+    <div class="container container--narrow reveal">
+      <p class="eyebrow">For parents</p>
+      <h2>Why learn classical arts?</h2>
+      <p class="why-text">
+        A classical training gives a child far more than a skill. The rhythmic
+        mathematics of Kathak's layakari sharpens the mind; the discipline of
+        daily riyaaz builds focus that carries into schoolwork; and the stage
+        experience of recitals builds a confidence that lasts a lifetime.
+      </p>
+      <p class="why-text">
+        Above all, classical arts connect a student to something older and
+        larger than themselves — a living tradition, passed hand to hand from
+        guru to shishya for centuries. Whether your child becomes a performer or
+        simply a more thoughtful, disciplined and cultured adult, the years
+        spent here are never wasted.
+      </p>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="band">
+    <div class="container container--narrow">
+      <div class="section-head reveal">
+        <p class="eyebrow">Common questions</p>
+        <h2>Before you enrol</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f) => (
+          <details class="faq__item reveal">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading="Which course is right for you?" />
+</BaseLayout>
+
+<style>
+  .course-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .course-jump .chip {
+    text-decoration: none;
+  }
+
+  .course-jump .chip:hover {
+    background: var(--blush-deep);
+  }
+
+  .course__grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  @media (min-width: 860px) {
+    .course__grid {
+      grid-template-columns: 5fr 6fr;
+      gap: var(--space-8);
+    }
+
+    .course__grid--rev .course__media {
+      order: 2;
+    }
+  }
+
+  .course__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: sticky;
+    top: calc(var(--header-h-condensed) + 1rem);
+  }
+
+  .course__facts {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin: 0 0 var(--space-5);
+    padding: 0;
+  }
+
+  .course__facts li {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .course__facts span {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral-deep);
+  }
+
+  .course__prose {
+    max-width: none;
+  }
+
+  .course__levels,
+  .course__boards {
+    margin-top: var(--space-5);
+  }
+
+  .course__levels ol {
+    padding-left: 1.2rem;
+  }
+
+  .course__levels li {
+    margin-bottom: var(--space-2);
+  }
+
+  .course__note {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .course__boards ul {
+    padding-left: 1.2rem;
+  }
+
+  .band--ink .course__note { color: var(--blush-deep); }
+
+  .why-text {
+    font-size: var(--text-lg);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-4) 0;
+  }
+
+  .faq__item summary {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .faq__item summary::after {
+    content: '+';
+    color: var(--coral-deep);
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: transform 0.2s var(--ease);
+  }
+
+  .faq__item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq__item p {
+    margin: var(--space-3) 0 0;
+    color: var(--ink-soft);
+  }
+</style>

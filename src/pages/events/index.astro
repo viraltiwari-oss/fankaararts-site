@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import EventCard from '../../components/EventCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const events = (await getCollection('events')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const years = [...new Set(events.map((e) => e.data.date.getFullYear()))].sort(
+  (a, b) => b - a
+);
+---
+
+<BaseLayout
+  title="Events Library — Recitals & Showcases | Fankaar Jaipur"
+  description="Browse Fankaar Institute's past recitals, showcases and celebrations in Jaipur — photos and videos of our students on stage. Filterable by year."
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Events', path: '/events' }]} />
+      <div class="section-head">
+        <p class="eyebrow">On stage</p>
+        <h1>Events library</h1>
+        <p class="lead">
+          Our students don't just learn — they perform. Here is a growing
+          archive of recitals, showcases and celebrations.
+        </p>
+      </div>
+
+      {years.length > 1 && (
+        <div class="year-filter" role="group" aria-label="Filter by year">
+          <button class="chip is-active" data-year="all">All</button>
+          {years.map((y) => (
+            <button class="chip" data-year={y}>{y}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container">
+      {events.length > 0 ? (
+        <div class="grid grid--3" id="events-grid">
+          {events.map((ev, i) => (
+            <EventCard event={ev} revealDelay={i % 3} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-center lead" style="margin-inline:auto;">
+          Our first events will appear here soon.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <CtaBand heading="Want to perform here?" text="Every Fankaar student gets stage time. Start your training and your first recital may be closer than you think." />
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.year-filter .chip');
+  const cards = document.querySelectorAll<HTMLElement>('#events-grid [data-year]');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const year = btn.dataset.year;
+      buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+      cards.forEach((card) => {
+        const show = year === 'all' || card.dataset.year === year;
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .year-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .year-filter .chip {
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--coral-deep);
+    background: var(--white);
+    min-height: 2.4rem;
+    padding-inline: 1rem;
+  }
+
+  .year-filter .chip.is-active {
+    background: var(--coral);
+    color: var(--white);
+  }
+</style>

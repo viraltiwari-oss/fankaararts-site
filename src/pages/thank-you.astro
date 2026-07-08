@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { waLink } from '../lib/site';
+---
+
+<BaseLayout
+  title="Thank you — we've got your enquiry | Fankaar Institute"
+  description="Thanks for reaching out to Fankaar Institute of Performing Arts. We'll be in touch shortly."
+  noindex
+>
+  <section class="band band--blush ty-band">
+    <div class="container container--narrow text-center">
+      <div class="ty-check" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="72" height="72" fill="none">
+          <circle cx="32" cy="32" r="30" fill="#E66F67" opacity="0.15"/>
+          <circle cx="32" cy="32" r="30" stroke="#E66F67" stroke-width="2"/>
+          <path d="M20 33l8 8 16-18" stroke="#AF554F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="eyebrow">Enquiry received</p>
+      <h1>Thank you — we'll be in touch soon</h1>
+      <p class="lead" style="margin-inline:auto;">
+        Your enquiry has reached us. We usually reply the same day with course
+        details, your nearest branch and current fees. For a faster response,
+        message us directly on WhatsApp.
+      </p>
+      <div class="ty-actions">
+        <a href={waLink()} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">Message us on WhatsApp</a>
+        <a href="/" class="btn btn--ghost">Back to home</a>
+      </div>
+      <p class="ty-explore">
+        While you wait — <a href="/blog/what-is-kathak">what exactly is Kathak?</a>
+      </p>
+    </div>
+  </section>
+
+  {/* Lead conversion fires here exactly once (§9) */}
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'generate_lead', method: 'form' });
+    if (window.fbq) fbq('track', 'Lead');
+  </script>
+</BaseLayout>
+
+<style>
+  .ty-band {
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .ty-check {
+    margin-bottom: var(--space-4);
+  }
+
+  .ty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+    margin-top: var(--space-5);
+  }
+
+  .ty-explore {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+</style>

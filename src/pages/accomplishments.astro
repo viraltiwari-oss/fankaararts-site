@@ -1,0 +1,142 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import StatStrip from '../components/StatStrip.astro';
+import CmsImage from '../components/CmsImage.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const items = (await getCollection('accomplishments')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const rendered = await Promise.all(
+  items.map(async (item) => ({ item, body: await render(item) }))
+);
+
+const stats = [
+  { value: '20+', label: 'Years of teaching' },
+  { value: '175+', label: 'Students trained' },
+  { value: '3', label: 'CCRT scholars' },
+  { value: '4', label: 'Branches' },
+];
+
+const categoryLabels: Record<string, string> = {
+  Scholar: 'Scholars',
+  Award: 'Awards',
+  Press: 'Press & recognition',
+  Result: 'Examination results',
+  Milestone: 'Milestones',
+};
+
+const grouped = rendered.reduce<Record<string, typeof rendered>>((acc, entry) => {
+  const cat = entry.item.data.category;
+  (acc[cat] ??= []).push(entry);
+  return acc;
+}, {});
+const order = ['Scholar', 'Award', 'Result', 'Press', 'Milestone'];
+---
+
+<BaseLayout
+  title="Our Accomplishments — Scholars, Awards & Results | Fankaar"
+  description="The record of Fankaar Institute, Jaipur: 3 CCRT scholarship awardees, 175+ students trained, board examination results, awards and press. Proof of a serious classical arts training."
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Accomplishments', path: '/accomplishments' }]} />
+      <div class="section-head">
+        <p class="eyebrow">The record</p>
+        <h1>Our accomplishments</h1>
+        <p class="lead">
+          Training is measured in results — scholarships won, examinations
+          passed, stages filled. Here is ours.
+        </p>
+      </div>
+      <StatStrip stats={stats} />
+    </div>
+  </section>
+
+  {order.filter((cat) => grouped[cat]?.length).map((cat, ci) => (
+    <section class:list={['band', ci % 2 === 1 ? 'band--blush' : '']}>
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>{categoryLabels[cat]}</h2>
+        </div>
+        <div class="grid grid--2">
+          {grouped[cat].map(({ item, body }, i) => (
+            <article class="card acc-card reveal" data-reveal-delay={i % 2}>
+              {item.data.image && (
+                <div class="acc-card__media">
+                  <CmsImage src={item.data.image} alt={item.data.title} ratio="16/9" sizes="(max-width:860px) 100vw, 50vw" />
+                </div>
+              )}
+              <div class="card__body">
+                <div class="acc-card__head">
+                  {item.data.metric && <span class="acc-card__metric">{item.data.metric}</span>}
+                  <div>
+                    <h3>{item.data.title}</h3>
+                    {item.data.date && <p class="acc-card__date">{item.data.date}</p>}
+                  </div>
+                </div>
+                <div class="prose acc-card__body">
+                  <body.Content />
+                </div>
+                {item.data.link && (
+                  <a href={item.data.link} class="acc-card__link" target="_blank" rel="noopener">
+                    Read more →
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand heading="Add your name to the record" text="The next scholar, the next topper, the next name on this page could be yours." />
+</BaseLayout>
+
+<style>
+  .acc-card__media {
+    overflow: hidden;
+  }
+
+  .acc-card__head {
+    display: flex;
+    gap: var(--space-4);
+    align-items: baseline;
+    margin-bottom: var(--space-3);
+  }
+
+  .acc-card__metric {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--coral-deep);
+    line-height: 1;
+    flex: none;
+  }
+
+  .acc-card h3 {
+    margin-bottom: var(--space-1);
+  }
+
+  .acc-card__date {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .acc-card__body {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    max-width: none;
+  }
+
+  .acc-card__link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BranchCard from '../../components/BranchCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const branches = (await getCollection('branches')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout
+  title="Our Branches in Jaipur + Online Classes | Fankaar Institute"
+  description="Fankaar Institute branches: Malviya Nagar, Tonk Road, Jagatpura and Nirman Nagar in Jaipur, plus live online classes pan-India and abroad. Addresses, timings and courses per branch."
+>
+  <section class="band band--blush">
+    <div class="container">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Branches', path: '/branches' }]} />
+      <div class="section-head">
+        <p class="eyebrow">Find your studio</p>
+        <h1>Four branches across Jaipur. One online, everywhere.</h1>
+        <p class="lead">
+          Every branch teaches to the same standard — same syllabus, same
+          exam path, same care. Pick the one closest to home, or learn live
+          online from anywhere in the world.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {branches.map((b, i) => (
+          <BranchCard branch={b} revealDelay={i % 3} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="container container--narrow text-center reveal">
+      <h2>Not sure which branch suits you?</h2>
+      <p class="lead" style="margin-inline:auto;">
+        Tell us your locality and the student's age on WhatsApp — we'll
+        recommend the nearest branch and batch timing in one reply.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Ask us which branch fits"
+    whatsappMessage="Namaste! Which Fankaar branch is closest for me? My locality is: "
+  />
+</BaseLayout>

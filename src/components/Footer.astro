@@ -1,0 +1,240 @@
+---
+import { getCollection } from 'astro:content';
+import { settings, waLink, telLink, mailLink } from '../lib/site';
+
+const branches = (await getCollection('branches')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const year = new Date().getFullYear();
+const { instagram, facebook, youtube } = settings.social;
+const hasNewsletter = Boolean(settings.forms.web3formsKey);
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <p class="site-footer__name">Fankaar</p>
+        <p class="site-footer__tagline">{settings.tagline}</p>
+        <p class="site-footer__devanagari devanagari" lang="hi">{settings.taglineHindi}</p>
+        <div class="site-footer__social">
+          {instagram && (
+            <a href={instagram} target="_blank" rel="noopener" aria-label="Fankaar on Instagram">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></svg>
+            </a>
+          )}
+          {facebook && (
+            <a href={facebook} target="_blank" rel="noopener" aria-label="Fankaar on Facebook">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.8h-2.3A4 4 0 0 0 10.6 7v1.5H8.5V12h2.1v9h3.4v-9h2.4l.5-3.5H14Z" fill="currentColor"/></svg>
+            </a>
+          )}
+          {youtube && (
+            <a href={youtube} target="_blank" rel="noopener" aria-label="Fankaar on YouTube">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 9.3v5.4l4.8-2.7-4.8-2.7Z" fill="currentColor"/></svg>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <nav class="site-footer__col" aria-label="Explore">
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="/about">About us</a></li>
+          <li><a href="/courses">Courses</a></li>
+          <li><a href="/workshops">Workshops</a></li>
+          <li><a href="/events">Events library</a></li>
+          <li><a href="/accomplishments">Accomplishments</a></li>
+          <li><a href="/blog">Blog</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-footer__col" aria-label="Branches">
+        <h2>Branches</h2>
+        <ul>
+          {branches.map((b) => (
+            <li><a href={`/branches/${b.id}`}>{b.data.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="site-footer__col">
+        <h2>Contact</h2>
+        <ul>
+          <li><a href={telLink()}>+91 {settings.phone}</a></li>
+          <li><a href={waLink()} data-track="whatsapp" target="_blank" rel="noopener">WhatsApp us</a></li>
+          <li><a href={mailLink()}>{settings.email}</a></li>
+          <li><a href="/enquiry">Enrollment enquiry</a></li>
+        </ul>
+        {hasNewsletter && (
+          <form
+            class="site-footer__newsletter"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+          >
+            <input type="hidden" name="access_key" value={settings.forms.web3formsKey} />
+            <input type="hidden" name="subject" value="Newsletter signup — Fankaar website" />
+            <input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" />
+            <label for="footer-email">Hear about workshops & recitals</label>
+            <div class="site-footer__newsletter-row">
+              <input id="footer-email" type="email" name="email" placeholder="Your email" required />
+              <button type="submit" class="btn btn--primary">Join</button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+
+    <div class="site-footer__legal">
+      <p>© {year} {settings.siteName}, Jaipur. All rights reserved.</p>
+      <p><a href="/privacy">Privacy policy</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: rgba(255, 255, 255, 0.82);
+    padding-block: var(--space-8) var(--space-6);
+    margin-top: auto;
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 960px) {
+    .site-footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+    }
+  }
+
+  .site-footer__name {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__tagline {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__devanagari {
+    color: var(--coral);
+    letter-spacing: 0.35em;
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__social {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .site-footer__social a {
+    color: rgba(255, 255, 255, 0.75);
+    display: inline-flex;
+    padding: 0.5rem;
+    margin: -0.5rem;
+  }
+
+  .site-footer__social a:hover {
+    color: var(--coral);
+  }
+
+  .site-footer__col h2 {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: var(--space-4);
+  }
+
+  .site-footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-footer__col li {
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__col a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__col a:hover {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .site-footer__newsletter {
+    margin-top: var(--space-5);
+  }
+
+  .site-footer__newsletter label {
+    display: block;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-2);
+  }
+
+  .site-footer__newsletter-row {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .site-footer__newsletter input[type='email'] {
+    flex: 1;
+    min-width: 0;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.8rem;
+    font: inherit;
+    font-size: var(--text-sm);
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius);
+  }
+
+  .site-footer__newsletter .btn {
+    min-height: 2.75rem;
+    padding-inline: 1.1rem;
+  }
+
+  .site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    font-size: var(--text-xs);
+  }
+
+  .site-footer__legal p {
+    margin: 0;
+  }
+
+  .site-footer__legal a {
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>

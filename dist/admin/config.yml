@@ -1,0 +1,357 @@
+# =====================================================================
+# Fankaar CMS configuration (Sveltia / Decap) — spec §5, §6.
+# This mirrors src/content.config.ts. Edits at /admin commit to GitHub
+# and auto-deploy via Cloudflare Pages. No subscription.
+#
+# BEFORE LAUNCH: set backend.repo to your GitHub "user/repo", then
+# connect the repo to Cloudflare Pages. See EDITING-GUIDE.md.
+# =====================================================================
+
+backend:
+  name: github
+  repo: your-github-username/fankaararts-site # ‹EDIT: set after creating the GitHub repo›
+  branch: main
+
+# Uploaded media is auto-optimised to WebP/AVIF at build time (§7).
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+
+# Save drafts before publishing
+publish_mode: editorial_workflow
+
+site_url: https://fankaararts.com
+logo_url: /logo.png
+
+collections:
+  # ------------------------------------------------------------------
+  # Global settings — one screen, edited once (§6)
+  # ------------------------------------------------------------------
+  - name: settings
+    label: "⚙️ Global Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: general
+        label: "Site & Contact"
+        file: src/data/settings.json
+        fields:
+          - { name: siteName, label: Site name, widget: string }
+          - { name: shortName, label: Short name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: taglineHindi, label: Tagline (Hindi/Devanagari), widget: string, required: false }
+          - { name: domain, label: Domain (with https://), widget: string }
+          - { name: phone, label: Phone (digits only), widget: string }
+          - { name: whatsapp, label: WhatsApp number (country code + number, e.g. 917976014592), widget: string }
+          - { name: whatsappMessage, label: Default WhatsApp pre-filled message, widget: text }
+          - { name: email, label: Email, widget: string }
+          - { name: hours, label: Enquiry hours, widget: string }
+          - name: social
+            label: Social links
+            widget: object
+            fields:
+              - { name: instagram, label: Instagram URL, widget: string, required: false }
+              - { name: facebook, label: Facebook URL, widget: string, required: false }
+              - { name: youtube, label: YouTube URL, widget: string, required: false }
+          - { name: defaultOgImage, label: Default social-share image, widget: image, required: false }
+          - name: tracking
+            label: "Tracking IDs (paste — no code)"
+            widget: object
+            fields:
+              - { name: gtmId, label: "Google Tag Manager ID (GTM-XXXX)", widget: string, required: false }
+              - { name: ga4Id, label: "GA4 Measurement ID (G-XXXX)", widget: string, required: false }
+              - { name: metaPixelId, label: "Meta Pixel ID", widget: string, required: false }
+              - { name: googleAdsId, label: "Google Ads ID (AW-XXXX)", widget: string, required: false }
+              - { name: gscVerification, label: "Search Console verification token", widget: string, required: false }
+          - name: forms
+            label: "Enquiry form"
+            widget: object
+            fields:
+              - { name: web3formsKey, label: "Web3Forms access key (enables email delivery)", widget: string, required: false }
+
+      - name: home
+        label: "Homepage"
+        file: src/data/home.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: headline, label: Headline, widget: string }
+              - { name: highlightWord, label: Word to italicise, widget: string, required: false }
+              - { name: subtext, label: Sub-text, widget: text }
+              - { name: videoUrl, label: Hero video URL (optional — leave blank for image/motif), widget: string, required: false }
+              - { name: image, label: Hero image (optional), widget: image, required: false }
+              - { name: imageAlt, label: Hero image alt text, widget: string, required: false }
+              - name: ctaPrimary
+                label: Primary button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: type, label: Type, widget: select, options: ["whatsapp"], default: "whatsapp" }
+              - name: ctaSecondary
+                label: Secondary button
+                widget: object
+                fields:
+                  - { name: label, label: Label, widget: string }
+                  - { name: url, label: URL, widget: string }
+          - name: stats
+            label: Trust strip stats
+            widget: list
+            fields:
+              - { name: value, label: Value, widget: string }
+              - { name: label, label: Label, widget: string }
+          - name: intro
+            label: Intro section
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: ctaLabel, label: Button label, widget: string }
+              - { name: ctaUrl, label: Button URL, widget: string }
+
+      - name: about
+        label: "About page"
+        file: src/data/about.json
+        fields:
+          - { name: heroHeading, label: Hero heading, widget: string }
+          - { name: heroSub, label: Hero sub-text, widget: string }
+          - { name: story, label: Story paragraphs, widget: list, field: { name: para, label: Paragraph, widget: text } }
+          - { name: mission, label: Mission statement, widget: text }
+          - name: founder
+            label: Founder
+            widget: object
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Role, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image, required: false }
+          - name: approach
+            label: Approach cards
+            widget: list
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+
+  # ------------------------------------------------------------------
+  # Branches (§6)
+  # ------------------------------------------------------------------
+  - name: branches
+    label: "📍 Branches"
+    folder: src/content/branches
+    create: true
+    slug: "{{fields.name | lower | replace(' ', '-')}}"
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: locality, label: Locality, widget: string }
+      - { name: headline, label: "Page H1 (locality-rich, e.g. 'Kathak Classes in Malviya Nagar, Jaipur')", widget: string }
+      - { name: online, label: Is this the Online branch?, widget: boolean, default: false }
+      - { name: address, label: Full address, widget: text, required: false }
+      - { name: addressNote, label: Address note (shown when address is blank), widget: string, required: false }
+      - { name: mapQuery, label: Map search text (for the embedded map), widget: string, required: false }
+      - { name: mapLink, label: "Google Maps share link ('Get directions')", widget: string, required: false }
+      - { name: phone, label: Phone (optional override), widget: string, required: false }
+      - { name: whatsapp, label: WhatsApp (optional override), widget: string, required: false }
+      - name: timings
+        label: Class timings
+        widget: list
+        fields:
+          - { name: course, label: Course, widget: string }
+          - { name: days, label: Days, widget: string }
+          - { name: time, label: Time, widget: string }
+      - { name: courses, label: Courses here (slugs), widget: list, required: false, hint: "e.g. kathak, hindustani-vocal" }
+      - { name: faculty, label: Faculty here (slugs), widget: list, required: false, hint: "e.g. vartika-tiwari" }
+      - { name: photos, label: Photos, widget: list, required: false, field: { name: image, label: Photo, widget: image } }
+      - { name: order, label: Display order, widget: number, default: 99, value_type: int }
+      - name: seo
+        label: SEO
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title, label: Meta title, widget: string, required: false }
+          - { name: description, label: Meta description, widget: text, required: false }
+          - { name: ogImage, label: Social image, widget: image, required: false }
+      - { name: body, label: Intro text (below the H1), widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Courses (§6)
+  # ------------------------------------------------------------------
+  - name: courses
+    label: "🎓 Courses"
+    folder: src/content/courses
+    create: true
+    slug: "{{fields.name | lower | replace(' ', '-')}}"
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: discipline, label: Discipline, widget: select, options: ["Dance", "Music", "Instrument"] }
+      - { name: short, label: Short blurb (for cards), widget: text }
+      - { name: ageRange, label: Age range, widget: string, default: "All ages" }
+      - { name: mode, label: Mode, widget: select, options: ["Online", "Offline", "Online + Offline"] }
+      - { name: fee, label: Fee, widget: string, default: "On enquiry" }
+      - name: levels
+        label: Levels
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: Level name, widget: string }
+          - { name: detail, label: Detail, widget: text, required: false }
+      - { name: levelsNote, label: Levels note, widget: text, required: false }
+      - { name: examBoards, label: Exam boards, widget: list, required: false, field: { name: board, label: Board, widget: string } }
+      - { name: image, label: Image, widget: image, required: false }
+      - { name: order, label: Display order, widget: number, default: 99, value_type: int }
+      - name: seo
+        label: SEO
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title, label: Meta title, widget: string, required: false }
+          - { name: description, label: Meta description, widget: text, required: false }
+      - { name: body, label: Full description, widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Workshops (§6)
+  # ------------------------------------------------------------------
+  - name: workshops
+    label: "🗓️ Workshops"
+    folder: src/content/workshops
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{title}} — {{start}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: start, label: Start date & time, widget: datetime }
+      - { name: end, label: End date & time, widget: datetime, required: false }
+      - { name: mode, label: Mode, widget: select, options: ["In-person", "Online"] }
+      - { name: venue, label: Venue or branch, widget: string, required: false }
+      - { name: fee, label: Fee, widget: string, default: "On enquiry" }
+      - { name: registrationUrl, label: Registration URL (optional — blank uses WhatsApp), widget: string, required: false }
+      - { name: image, label: Image, widget: image, required: false }
+      - name: seo
+        label: SEO
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title, label: Meta title, widget: string, required: false }
+          - { name: description, label: Meta description, widget: text, required: false }
+      - { name: body, label: Description, widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Events library (§6)
+  # ------------------------------------------------------------------
+  - name: events
+    label: "🎭 Events Library"
+    folder: src/content/events
+    create: true
+    slug: "{{year}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: type, label: Type, widget: select, options: ["Recital", "Showcase", "Workshop", "Press", "Celebration"], default: "Recital" }
+      - { name: cover, label: Cover image, widget: image, required: false }
+      - { name: gallery, label: Photo gallery, widget: list, required: false, field: { name: image, label: Photo, widget: image } }
+      - { name: videos, label: Video URLs (YouTube/Vimeo), widget: list, required: false, field: { name: url, label: URL, widget: string } }
+      - { name: placeholder, label: "Placeholder (awaiting real media)", widget: boolean, default: false }
+      - name: seo
+        label: SEO
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title, label: Meta title, widget: string, required: false }
+          - { name: description, label: Meta description, widget: text, required: false }
+      - { name: body, label: Description, widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Accomplishments (§6)
+  # ------------------------------------------------------------------
+  - name: accomplishments
+    label: "🏆 Accomplishments"
+    folder: src/content/accomplishments
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: category, label: Category, widget: select, options: ["Scholar", "Award", "Press", "Result", "Milestone"] }
+      - { name: metric, label: "Number/metric (e.g. 3, 175+)", widget: string, required: false }
+      - { name: date, label: Date/year, widget: string, required: false }
+      - { name: image, label: Image, widget: image, required: false }
+      - { name: link, label: External link, widget: string, required: false }
+      - { name: placeholder, label: "Placeholder", widget: boolean, default: false }
+      - { name: order, label: Display order, widget: number, default: 99, value_type: int }
+      - { name: body, label: Description, widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Blog (§6)
+  # ------------------------------------------------------------------
+  - name: blog
+    label: "✍️ Blog"
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Published date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: updated, label: Updated date, widget: datetime, required: false, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { name: author, label: Author, widget: string, default: "Vartika Tiwari" }
+      - { name: category, label: Category, widget: string, default: "Classical Arts" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: excerpt, label: Excerpt, widget: text }
+      - { name: cover, label: Featured image, widget: image, required: false }
+      - { name: coverAlt, label: Featured image alt text, widget: string, required: false }
+      - name: seo
+        label: SEO
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title, label: Meta title, widget: string, required: false }
+          - { name: description, label: Meta description, widget: text, required: false }
+      - { name: body, label: Body, widget: markdown }
+
+  # ------------------------------------------------------------------
+  # Testimonials (§6)
+  # ------------------------------------------------------------------
+  - name: testimonials
+    label: "💬 Testimonials"
+    folder: src/content/testimonials
+    create: true
+    slug: "{{slug}}"
+    summary: "{{person}}"
+    fields:
+      - { name: quote, label: Quote, widget: text }
+      - { name: person, label: Person, widget: string }
+      - { name: role, label: Role/source, widget: string, required: false }
+      - { name: date, label: Date, widget: string, required: false }
+      - { name: photo, label: Photo, widget: image, required: false }
+      - { name: featured, label: "Feature on homepage", widget: boolean, default: false }
+      - { name: body, label: "(unused — leave blank)", widget: markdown, required: false }
+
+  # ------------------------------------------------------------------
+  # Faculty (§6)
+  # ------------------------------------------------------------------
+  - name: faculty
+    label: "👤 Faculty"
+    folder: src/content/faculty
+    create: true
+    slug: "{{fields.name | lower | replace(' ', '-')}}"
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: role, label: Role, widget: string }
+      - { name: credentials, label: Credentials, widget: text, required: false }
+      - { name: branches, label: Branches (slugs), widget: list, required: false }
+      - { name: photo, label: Photo, widget: image, required: false }
+      - { name: order, label: Display order, widget: number, default: 99, value_type: int }
+      - { name: body, label: Short bio, widget: markdown }

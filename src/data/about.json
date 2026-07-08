@@ -1,0 +1,29 @@
+{
+  "heroHeading": "Preserving Heritage, Nurturing Artistry.",
+  "heroSub": "The story of Fankaar Institute of Performing Arts, Jaipur.",
+  "story": [
+    "Fankaar began with a simple conviction: that India's classical arts are not museum pieces but living practices — and that anyone with a zeal to learn deserves a guru who takes them seriously. What started as a handful of Kathak students in Jaipur has grown into an institute of four branches and an online classroom, with more than 175 students trained and three CCRT scholarship awardees among them.",
+    "The name is the mission. Fankaar (फ़नकार) means artist — and every class, from a six-year-old's first tatkaar to an adult learner's Visharad preparation, is designed to awaken that artist. We train for depth, not display: correct technique, living repertoire, and the discipline that makes creative freedom possible."
+  ],
+  "mission": "Fankaar exists to preserve the purity and timelessness of India's classical and folk performing arts — guiding every student, through mentorship and discipline, toward the creative freedom that awakens the fankaar (artist) within.",
+  "founder": {
+    "name": "Vartika Tiwari",
+    "role": "Founder & Director · Kathak Exponent",
+    "bio": "With over twenty years in Kathak, Vartika Tiwari has devoted her life to teaching as much as performing. She leads the institute's Kathak training across Jaipur — personally teaching at the Tonk Road, Jagatpura and Nirman Nagar branches — and mentors every student's journey from Prarambhik to Visharad. Her classrooms run on the guru-shishya ideal: close observation, honest correction, and genuine care for each student's growth.",
+    "photo": ""
+  },
+  "approach": [
+    {
+      "title": "Guru-shishya parampara",
+      "text": "Small batches and close mentorship — every student is seen, corrected and encouraged personally, the way classical arts have always been passed on."
+    },
+    {
+      "title": "A structured path",
+      "text": "Training is mapped to recognised exam stages — Prarambhik, Praveshika, Visharad — through boards like Bhatkhande Sanskriti Vishwavidyalaya, Gandharva Mahavidyalaya and Rajasthan Sangeet Sansthan."
+    },
+    {
+      "title": "The stage as classroom",
+      "text": "Recitals, showcases and community performances are part of the curriculum. Students learn to carry their art into the world with poise."
+    }
+  ]
+}
