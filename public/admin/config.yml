@@ -1,26 +1,40 @@
 # =====================================================================
-# Fankaar CMS configuration (Sveltia / Decap) — spec §5, §6.
-# This mirrors src/content.config.ts. Edits at /admin commit to GitHub
-# and auto-deploy via Cloudflare Pages. No subscription.
-#
-# BEFORE LAUNCH: set backend.repo to your GitHub "user/repo", then
-# connect the repo to Cloudflare Pages. See EDITING-GUIDE.md.
+# Fankaar CMS configuration (Decap CMS + DecapBridge auth) — spec §5, §6.
+# Editors log in at /admin with email or Google (no GitHub account needed).
+# Edits commit to GitHub and auto-deploy via Cloudflare/Netlify. No subscription.
 # =====================================================================
 
+# --- DecapBridge PKCE auth (do not edit these unless DecapBridge tells you to) ---
 backend:
-  name: github
-  repo: your-github-username/fankaararts-site # ‹EDIT: set after creating the GitHub repo›
+  name: git-gateway
+  repo: viraltiwari-oss/fankaararts-site
   branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/ab8112b4-2531-4881-912e-1f0b8212f4ac/pkce
+  auth_token_endpoint: /sites/ab8112b4-2531-4881-912e-1f0b8212f4ac/token
+  gateway_url: https://gateway.decapbridge.com
+  commit_messages:
+    create: 'Create {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    update: 'Update {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    delete: 'Delete {{collection}} "{{slug}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    uploadMedia: 'Upload "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    deleteMedia: 'Delete "{{path}}" - {{author-name}} <{{author-login}}> via DecapBridge'
+    openAuthoring: 'Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge'
+
+# PKCE identity fields
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+site_url: https://fankaararts.com
+logo_url: /logo.png
 
 # Uploaded media is auto-optimised to WebP/AVIF at build time (§7).
 media_folder: src/assets/uploads
 public_folder: /src/assets/uploads
-
-# Save drafts before publishing
-publish_mode: editorial_workflow
-
-site_url: https://fankaararts.com
-logo_url: /logo.png
 
 collections:
   # ------------------------------------------------------------------
