@@ -122,6 +122,8 @@ collections:
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: heading, label: Heading, widget: string }
               - { name: text, label: Text, widget: text }
+              - { name: image, label: Intro image (optional), widget: image, required: false }
+              - { name: imageAlt, label: Intro image alt text, widget: string, required: false }
               - { name: ctaLabel, label: Button label, widget: string }
               - { name: ctaUrl, label: Button URL, widget: string }
 
@@ -148,6 +150,65 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: text, label: Text, widget: text }
 
+      - name: pages
+        label: "🖼️ Page cover images"
+        file: src/data/pages.json
+        fields:
+          - name: about
+            label: About page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: branches
+            label: Branches page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: courses
+            label: Courses page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: workshops
+            label: Workshops page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: events
+            label: Events page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: accomplishments
+            label: Accomplishments page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: blog
+            label: Blog page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: contact
+            label: Contact page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+          - name: enquiry
+            label: Enquiry page
+            widget: object
+            fields:
+              - { name: cover, label: Cover image, widget: image, required: false }
+              - { name: coverAlt, label: Cover alt text, widget: string, required: false }
+
   # ------------------------------------------------------------------
   # Branches (§6)
   # ------------------------------------------------------------------
@@ -169,6 +230,8 @@ collections:
       - { name: mapLink, label: "Google Maps share link ('Get directions')", widget: string, required: false }
       - { name: phone, label: Phone (optional override), widget: string, required: false }
       - { name: whatsapp, label: WhatsApp (optional override), widget: string, required: false }
+      - { name: cover, label: Branch cover image (banner), widget: image, required: false }
+      - { name: coverAlt, label: Cover alt text, widget: string, required: false }
       - name: timings
         label: Class timings
         widget: list
@@ -217,7 +280,7 @@ collections:
           - { name: detail, label: Detail, widget: text, required: false }
       - { name: levelsNote, label: Levels note, widget: text, required: false }
       - { name: examBoards, label: Exam boards, widget: list, required: false, field: { name: board, label: Board, widget: string } }
-      - { name: image, label: Image, widget: image, required: false }
+      - { name: image, label: Cover image, widget: image, required: false }
       - { name: order, label: Display order, widget: number, default: 99, value_type: int }
       - name: seo
         label: SEO

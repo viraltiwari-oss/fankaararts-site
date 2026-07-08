@@ -4,6 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import EnquiryForm from '../components/EnquiryForm.astro';
 import { settings, waLink, telLink, mailLink, mapEmbedUrl } from '../lib/site';
+import PageHero from '../components/PageHero.astro';
+import pages from '../data/pages.json';
 
 const branches = (await getCollection('branches')).sort(
   (a, b) => a.data.order - b.data.order
@@ -16,18 +18,17 @@ const { instagram, facebook, youtube } = settings.social;
   title="Contact Fankaar Institute — Phone, WhatsApp & Branches | Jaipur"
   description="Contact Fankaar Institute of Performing Arts, Jaipur. WhatsApp/phone 7976014592, email art.fankar@gmail.com. Addresses and maps for all four Jaipur branches."
 >
+  <PageHero
+    eyebrow="Get in touch"
+    title="Contact us"
+    lead="The fastest way to reach us is WhatsApp — we usually reply within a few hours, every day."
+    cover={pages.contact.cover}
+    coverAlt={pages.contact.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }]}
+  />
+
   <section class="band band--blush">
     <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }]} />
-      <div class="section-head">
-        <p class="eyebrow">Get in touch</p>
-        <h1>Contact us</h1>
-        <p class="lead">
-          The fastest way to reach us is WhatsApp — we usually reply within a
-          few hours, every day.
-        </p>
-      </div>
-
       <div class="contact-methods">
         <a href={waLink()} class="contact-method" data-track="whatsapp" target="_blank" rel="noopener">
           <span class="contact-method__label">WhatsApp</span>

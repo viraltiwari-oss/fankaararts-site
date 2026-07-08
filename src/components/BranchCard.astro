@@ -15,8 +15,8 @@ const uniqueCourses = [...new Set(courseNames)];
 <a href={`/branches/${branch.id}`} class="card branch-card reveal" data-reveal-delay={revealDelay || undefined}>
   <div class="branch-card__media">
     <CmsImage
-      src={data.photos[0]}
-      alt={`${data.name} branch`}
+      src={data.cover || data.photos[0]}
+      alt={data.coverAlt ?? `${data.name} branch`}
       ratio="16/10"
       sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 25vw"
       placeholderLabel={data.online ? 'Live online classes' : `${data.name} studio`}

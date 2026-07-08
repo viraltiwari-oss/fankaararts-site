@@ -19,14 +19,11 @@ courses:
 faculty:
   - rahul-bhalia
   - mriganki-sharma
-photos:
-  - /src/assets/uploads/whatsapp-image-2026-07-03-at-18.11.28.jpeg
+photos: []
 order: 1
 seo:
   title: Kathak & Vocal Classes in Malviya Nagar, Jaipur | Fankaar
-  description: Learn Kathak and Hindustani classical vocal in Malviya Nagar,
-    Jaipur at Fankaar Institute of Performing Arts. Guru-shishya mentorship,
-    exam-oriented levels, ages 6–70+. Enquire on WhatsApp.
+  description: Learn Kathak and Hindustani classical vocal in Malviya Nagar, Jaipur at Fankaar Institute of Performing Arts. Guru-shishya mentorship, exam-oriented levels, ages 6–70+. Enquire on WhatsApp.
 ---
 
 Our Malviya Nagar branch is Fankaar's busiest classroom — Kathak three evenings a week and Hindustani vocal on alternate days, minutes from Gaurav Tower and the heart of south Jaipur. Batches are kept small so every student, from a six-year-old beginner to an adult returning to music, gets personal correction and care.

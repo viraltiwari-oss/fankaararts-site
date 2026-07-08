@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import EventCard from '../../components/EventCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import pages from '../../data/pages.json';
 
 const events = (await getCollection('events')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -18,28 +20,27 @@ const years = [...new Set(events.map((e) => e.data.date.getFullYear()))].sort(
   title="Events Library — Recitals & Showcases | Fankaar Jaipur"
   description="Browse Fankaar Institute's past recitals, showcases and celebrations in Jaipur — photos and videos of our students on stage. Filterable by year."
 >
-  <section class="band band--blush">
-    <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Events', path: '/events' }]} />
-      <div class="section-head">
-        <p class="eyebrow">On stage</p>
-        <h1>Events library</h1>
-        <p class="lead">
-          Our students don't just learn — they perform. Here is a growing
-          archive of recitals, showcases and celebrations.
-        </p>
-      </div>
+  <PageHero
+    eyebrow="On stage"
+    title="Events library"
+    lead="Our students don't just learn — they perform. Here is a growing archive of recitals, showcases and celebrations."
+    cover={pages.events.cover}
+    coverAlt={pages.events.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Events', path: '/events' }]}
+  />
 
-      {years.length > 1 && (
+  {years.length > 1 && (
+    <section class="band" style="padding-block: var(--space-5);">
+      <div class="container">
         <div class="year-filter" role="group" aria-label="Filter by year">
           <button class="chip is-active" data-year="all">All</button>
           {years.map((y) => (
             <button class="chip" data-year={y}>{y}</button>
           ))}
         </div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
   <section class="band">
     <div class="container">

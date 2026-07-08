@@ -5,6 +5,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CmsImage from '../../components/CmsImage.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
 import { branchSchema } from '../../lib/schema';
 import { waLink, mapEmbedUrl, settings, telLink } from '../../lib/site';
 
@@ -54,37 +55,36 @@ const waMsg = `Namaste! I'd like to enquire about classes at the ${data.name} br
 ---
 
 <BaseLayout title={seoTitle} description={seoDesc} schema={schema}>
-  <section class="band band--blush branch-hero">
-    <div class="container">
-      <Breadcrumbs
-        items={[
-          { name: 'Home', path: '/' },
-          { name: 'Branches', path: '/branches' },
-          { name: data.name, path },
-        ]}
-      />
-      <h1>{data.headline}</h1>
-      <div class="branch-hero__meta">
-        {!data.online && data.address && (
-          <p class="branch-hero__address">
-            <strong>Address:</strong> {data.address}
-          </p>
-        )}
-        {data.addressNote && <p class="branch-hero__note">{data.addressNote}</p>}
-        <div class="branch-hero__actions">
-          <a href={waLink(waMsg)} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
-            Enquire on WhatsApp
+  <PageHero
+    title={data.headline}
+    cover={data.cover}
+    coverAlt={data.coverAlt}
+    crumbs={[
+      { name: 'Home', path: '/' },
+      { name: 'Branches', path: '/branches' },
+      { name: data.name, path },
+    ]}
+  >
+    <div class="branch-hero__meta">
+      {!data.online && data.address && (
+        <p class="branch-hero__address">
+          <strong>Address:</strong> {data.address}
+        </p>
+      )}
+      {data.addressNote && <p class="branch-hero__note">{data.addressNote}</p>}
+      <div class="branch-hero__actions">
+        <a href={waLink(waMsg)} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
+          Enquire on WhatsApp
+        </a>
+        <a href={telLink()} class="btn btn--ghost">Call +91 {settings.phone}</a>
+        {data.mapLink && (
+          <a href={data.mapLink} class="btn btn--ghost" target="_blank" rel="noopener">
+            Get directions
           </a>
-          <a href={telLink()} class="btn btn--ghost">Call +91 {settings.phone}</a>
-          {data.mapLink && (
-            <a href={data.mapLink} class="btn btn--ghost" target="_blank" rel="noopener">
-              Get directions
-            </a>
-          )}
-        </div>
+        )}
       </div>
     </div>
-  </section>
+  </PageHero>
 
   <section class="band">
     <div class="container branch-body">

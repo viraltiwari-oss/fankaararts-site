@@ -29,6 +29,8 @@ const branches = defineCollection({
     mapLink: z.string().optional(), // "Get directions" share link
     phone: z.string().default(''),
     whatsapp: z.string().default(''),
+    cover: z.string().optional(), // banner image for the branch page + card
+    coverAlt: z.string().optional(),
     timings: z
       .array(
         z.object({

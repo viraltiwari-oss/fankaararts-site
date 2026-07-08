@@ -4,7 +4,7 @@ locality: Pan-India & Abroad
 headline: Online Kathak & Hindustani Classical Music Classes
 online: true
 address: ""
-addressNote: Live classes from Jaipur to anywhere in the world.
+addressNote: "Live classes from Jaipur to anywhere in the world."
 timings:
   - course: Kathak (live online)
     days: Batch & one-on-one slots
@@ -17,14 +17,11 @@ courses:
   - hindustani-vocal
 faculty:
   - vartika-tiwari
-photos:
-  - /src/assets/uploads/whatsapp-image-2026-07-03-at-18.11.28-3-.jpeg
+photos: []
 order: 5
 seo:
   title: Online Kathak Classes from Jaipur — Live | Fankaar
-  description: Learn Kathak live online with Fankaar Institute of Performing Arts,
-    Jaipur — authentic guru-shishya training for students across India and
-    abroad. Hindustani vocal on request. Enquire on WhatsApp.
+  description: Learn Kathak live online with Fankaar Institute of Performing Arts, Jaipur — authentic guru-shishya training for students across India and abroad. Hindustani vocal on request. Enquire on WhatsApp.
 ---
 
 Fankaar's online classroom carries the same training that runs in our Jaipur studios to students anywhere — other Indian cities, or abroad. Classes are live and interactive (never recorded lectures): the guru watches, corrects and demonstrates in real time, and students progress through the same Prarambhik → Praveshika → Visharad stages as in-person learners.

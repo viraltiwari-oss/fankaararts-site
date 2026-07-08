@@ -1,7 +1,7 @@
 ---
 name: Mriganki Sharma
-role: First Incharge
-credentials: ‹ADD credentials — gharana/guru lineage, exams, performance highlights›
+role: Hindustani Vocal Faculty
+credentials: "‹ADD credentials — gharana/guru lineage, exams, performance highlights›"
 branches:
   - malviya-nagar
 photo: ""

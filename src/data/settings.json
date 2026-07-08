@@ -1,28 +1,28 @@
 {
-  "defaultOgImage": "/og-default.png",
-  "domain": "https://fankaararts.com",
-  "taglineHindi": "नृत्य • संगीत",
+  "siteName": "Fankaar Institute of Performing Arts",
   "shortName": "Fankaar",
+  "tagline": "Preserving Heritage, Nurturing Artistry.",
+  "taglineHindi": "नृत्य • संगीत",
+  "domain": "https://fankaararts.com",
+  "phone": "7976014592",
+  "whatsapp": "917976014592",
+  "whatsappMessage": "Namaste! I found Fankaar's website and would like to know more about classes.",
+  "email": "art.fankar@gmail.com",
+  "hours": "Class hours vary by branch — see each branch page. Enquiries: 10 AM – 8 PM, all days.",
   "social": {
     "instagram": "https://www.instagram.com/fankaararts",
     "facebook": "",
-    "youtube": "https://www.youtube.com/@fankaararts"
+    "youtube": ""
   },
-  "phone": "7976014592",
-  "tagline": "Preserving Heritage, Nurturing Artistry.",
-  "forms": {
-    "web3formsKey": ""
-  },
-  "hours": "Class hours vary by branch — see each branch page. Enquiries: 10 AM – 8 PM, all days.",
-  "whatsapp": "917976014592",
-  "siteName": "Fankaar Institute of Performing Arts",
-  "whatsappMessage": "Namaste! I found Fankaar's website and would like to know more about classes.",
+  "defaultOgImage": "/og-default.png",
   "tracking": {
     "gtmId": "",
-    "ga4Id": "<!-- Google tag (gtag.js) --> <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-T5FWJMR57D\"></script> <script>   window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}   gtag('js', new Date());    gtag('config', 'G-T5FWJMR57D'); </script>",
+    "ga4Id": "",
     "metaPixelId": "",
     "googleAdsId": "",
     "gscVerification": ""
   },
-  "email": "art.fankar@gmail.com"
+  "forms": {
+    "web3formsKey": ""
+  }
 }

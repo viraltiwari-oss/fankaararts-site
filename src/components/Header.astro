@@ -51,27 +51,29 @@ const isActive = (href: string) =>
       <span></span><span></span><span></span>
     </button>
   </div>
+</header>
 
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <nav aria-label="Mobile">
-      <ul>
-        <li><a href="/">Home</a></li>
-        {nav.map((item) => (
-          <li>
-            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
-              {item.label}
-            </a>
-          </li>
-        ))}
-        <li class="mobile-menu__cta">
-          <a href={waLink()} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
-            Enquire on WhatsApp
+<!-- Mobile menu lives OUTSIDE <header>: the header's backdrop-filter would
+     otherwise trap this position:fixed panel inside the header box (iOS bug). -->
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav aria-label="Mobile">
+    <ul>
+      <li><a href="/">Home</a></li>
+      {nav.map((item) => (
+        <li>
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
           </a>
         </li>
-      </ul>
-    </nav>
-  </div>
-</header>
+      ))}
+      <li class="mobile-menu__cta">
+        <a href={waLink()} class="btn btn--primary" data-track="whatsapp" target="_blank" rel="noopener">
+          Enquire on WhatsApp
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 
 <style>
   .site-header {
@@ -193,10 +195,15 @@ const isActive = (href: string) =>
   .mobile-menu {
     display: none;
     position: fixed;
-    inset: var(--header-h-condensed) 0 0 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: var(--header-h);
     background: var(--white);
     overflow-y: auto;
-    z-index: 99;
+    -webkit-overflow-scrolling: touch;
+    z-index: 95;
   }
 
   .mobile-menu.is-open {

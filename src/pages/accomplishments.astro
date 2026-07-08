@@ -5,6 +5,8 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import StatStrip from '../components/StatStrip.astro';
 import CmsImage from '../components/CmsImage.astro';
 import CtaBand from '../components/CtaBand.astro';
+import PageHero from '../components/PageHero.astro';
+import pages from '../data/pages.json';
 
 const items = (await getCollection('accomplishments')).sort(
   (a, b) => a.data.order - b.data.order
@@ -40,17 +42,17 @@ const order = ['Scholar', 'Award', 'Result', 'Press', 'Milestone'];
   title="Our Accomplishments — Scholars, Awards & Results | Fankaar"
   description="The record of Fankaar Institute, Jaipur: 3 CCRT scholarship awardees, 175+ students trained, board examination results, awards and press. Proof of a serious classical arts training."
 >
+  <PageHero
+    eyebrow="The record"
+    title="Our accomplishments"
+    lead="Training is measured in results — scholarships won, examinations passed, stages filled. Here is ours."
+    cover={pages.accomplishments.cover}
+    coverAlt={pages.accomplishments.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Accomplishments', path: '/accomplishments' }]}
+  />
+
   <section class="band band--blush">
     <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Accomplishments', path: '/accomplishments' }]} />
-      <div class="section-head">
-        <p class="eyebrow">The record</p>
-        <h1>Our accomplishments</h1>
-        <p class="lead">
-          Training is measured in results — scholarships won, examinations
-          passed, stages filled. Here is ours.
-        </p>
-      </div>
       <StatStrip stats={stats} />
     </div>
   </section>

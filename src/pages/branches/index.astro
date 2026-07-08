@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BranchCard from '../../components/BranchCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import pages from '../../data/pages.json';
 
 const branches = (await getCollection('branches')).sort(
   (a, b) => a.data.order - b.data.order
@@ -14,18 +16,17 @@ const branches = (await getCollection('branches')).sort(
   title="Our Branches in Jaipur + Online Classes | Fankaar Institute"
   description="Fankaar Institute branches: Malviya Nagar, Tonk Road, Jagatpura and Nirman Nagar in Jaipur, plus live online classes pan-India and abroad. Addresses, timings and courses per branch."
 >
+  <PageHero
+    eyebrow="Find your studio"
+    title="Four branches across Jaipur. One online, everywhere."
+    lead="Every branch teaches to the same standard — same syllabus, same exam path, same care. Pick the one closest to home, or learn live online from anywhere in the world."
+    cover={pages.branches.cover}
+    coverAlt={pages.branches.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Branches', path: '/branches' }]}
+  />
+
   <section class="band band--blush">
     <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Branches', path: '/branches' }]} />
-      <div class="section-head">
-        <p class="eyebrow">Find your studio</p>
-        <h1>Four branches across Jaipur. One online, everywhere.</h1>
-        <p class="lead">
-          Every branch teaches to the same standard — same syllabus, same
-          exam path, same care. Pick the one closest to home, or learn live
-          online from anywhere in the world.
-        </p>
-      </div>
       <div class="grid grid--3">
         {branches.map((b, i) => (
           <BranchCard branch={b} revealDelay={i % 3} />

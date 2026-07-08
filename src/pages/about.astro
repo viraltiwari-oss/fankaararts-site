@@ -7,6 +7,8 @@ import MotifDivider from '../components/MotifDivider.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import about from '../data/about.json';
+import PageHero from '../components/PageHero.astro';
+import pages from '../data/pages.json';
 
 const faculty = (await getCollection('faculty')).sort(
   (a, b) => a.data.order - b.data.order
@@ -20,14 +22,14 @@ const facultyRendered = await Promise.all(
   title="About Us — Our Story & Faculty | Fankaar Institute, Jaipur"
   description="The story of Fankaar Institute of Performing Arts, Jaipur — founded by Kathak exponent Vartika Tiwari (20+ years). Guru-shishya mentorship, 175+ students, 3 CCRT scholars, 4 branches."
 >
-  <section class="band about-hero band--blush">
-    <div class="container container--narrow text-center">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About us', path: '/about' }]} />
-      <p class="eyebrow">About Fankaar</p>
-      <h1>{about.heroHeading}</h1>
-      <p class="lead" style="margin-inline:auto;">{about.heroSub}</p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="About Fankaar"
+    title={about.heroHeading}
+    lead={about.heroSub}
+    cover={pages.about.cover}
+    coverAlt={pages.about.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'About us', path: '/about' }]}
+  />
 
   <section class="band">
     <div class="container container--narrow reveal">

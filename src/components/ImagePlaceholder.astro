@@ -8,11 +8,13 @@ interface Props {
   ratio?: string;
   label?: string;
   class?: string;
+  fill?: boolean;
 }
-const { ratio = '4/3', label, class: className = '' } = Astro.props;
+const { ratio = '4/3', label, class: className = '', fill = false } = Astro.props;
+const phStyle = fill ? 'width:100%;height:100%;' : `aspect-ratio: ${ratio};`;
 ---
 
-<div class={`img-ph ${className}`} style={`aspect-ratio: ${ratio};`} role="img" aria-label={label ?? 'Photo coming soon'}>
+<div class={`img-ph ${className}`} style={phStyle} role="img" aria-label={label ?? 'Photo coming soon'}>
   <svg viewBox="0 0 120 120" width="88" height="88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path
       d="M60 12c22 0 38 16.5 38 37 0 19.8-15.2 35-34.5 35C48 84 36 73.2 36 59.5 36 48.6 44.6 40 55.3 40c8.4 0 14.6 6 14.6 13.6 0 6-4.4 10.4-10 10.4"

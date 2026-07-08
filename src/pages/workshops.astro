@@ -7,6 +7,8 @@ import CtaBand from '../components/CtaBand.astro';
 import SchemaLd from '../components/SchemaLd.astro';
 import { eventSchema } from '../lib/schema';
 import { isUpcoming, waLink } from '../lib/site';
+import PageHero from '../components/PageHero.astro';
+import pages from '../data/pages.json';
 
 const all = await getCollection('workshops');
 const upcoming = all
@@ -37,19 +39,14 @@ const schema = upcoming.map((w) =>
   description="Kathak and classical music workshops at Fankaar Institute, Jaipur. See upcoming sessions and register on WhatsApp — or message us to be notified of the next one."
   schema={schema}
 >
-  <section class="band band--blush">
-    <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Workshops', path: '/workshops' }]} />
-      <div class="section-head">
-        <p class="eyebrow">Special sessions</p>
-        <h1>Workshops</h1>
-        <p class="lead">
-          Alongside regular classes, we run occasional intensives — guest
-          artists, exam crash-courses, seasonal recitál prep. They fill fast.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Special sessions"
+    title="Workshops"
+    lead="Alongside regular classes, we run occasional intensives — guest artists, exam crash-courses, seasonal recital prep. They fill fast."
+    cover={pages.workshops.cover}
+    coverAlt={pages.workshops.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Workshops', path: '/workshops' }]}
+  />
 
   <section class="band">
     <div class="container">

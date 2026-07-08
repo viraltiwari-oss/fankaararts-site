@@ -7,6 +7,8 @@ import CtaBand from '../components/CtaBand.astro';
 import SchemaLd from '../components/SchemaLd.astro';
 import { courseSchema, faqSchema } from '../lib/schema';
 import { waLink } from '../lib/site';
+import PageHero from '../components/PageHero.astro';
+import pages from '../data/pages.json';
 
 const courses = (await getCollection('courses')).sort(
   (a, b) => a.data.order - b.data.order
@@ -49,17 +51,17 @@ const faqSchemaData = faqSchema(faqs);
   description="Courses at Fankaar Institute, Jaipur: Kathak, Hindustani classical vocal, guitar and keyboard. Structured levels (Prarambhik, Praveshika, Visharad), ages 6–70+, online + offline. Fees on enquiry."
   schema={[...schemas, faqSchemaData]}
 >
-  <section class="band band--blush">
+  <PageHero
+    eyebrow="What we teach"
+    title="Courses at Fankaar"
+    lead="Classical dance and music, taught with structure and soul — from a child's first lesson to degree-level examinations."
+    cover={pages.courses.cover}
+    coverAlt={pages.courses.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Courses', path: '/courses' }]}
+  />
+
+  <section class="band" style="padding-block: var(--space-5);">
     <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Courses', path: '/courses' }]} />
-      <div class="section-head">
-        <p class="eyebrow">What we teach</p>
-        <h1>Courses at Fankaar</h1>
-        <p class="lead">
-          Classical dance and music, taught with structure and soul — from a
-          child's first lesson to degree-level examinations.
-        </p>
-      </div>
       <nav class="course-jump" aria-label="Jump to course">
         {courses.map((c) => (
           <a href={`#${c.id}`} class="chip">{c.data.name}</a>

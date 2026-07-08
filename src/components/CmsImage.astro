@@ -17,6 +17,7 @@ interface Props {
   class?: string;
   loading?: 'lazy' | 'eager';
   placeholderLabel?: string;
+  fill?: boolean; // fill the parent container instead of keeping a fixed ratio
 }
 
 const {
@@ -28,7 +29,12 @@ const {
   class: className = '',
   loading = 'lazy',
   placeholderLabel,
+  fill = false,
 } = Astro.props;
+
+const imgStyle = fill
+  ? 'width: 100%; height: 100%; object-fit: cover; display: block;'
+  : `aspect-ratio: ${ratio}; object-fit: cover; width: 100%;`;
 
 const uploads = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/uploads/**/*.{jpeg,jpg,png,gif,webp,avif,JPEG,JPG,PNG}'
@@ -48,8 +54,8 @@ const resolved = loader ? (await loader()).default : undefined;
     sizes={sizes}
     class={className}
     loading={loading}
-    style={`aspect-ratio: ${ratio}; object-fit: cover; width: 100%;`}
+    style={imgStyle}
   />
 ) : (
-  <ImagePlaceholder ratio={ratio} label={placeholderLabel} class={className} />
+  <ImagePlaceholder ratio={fill ? undefined : ratio} fill={fill} label={placeholderLabel} class={className} />
 )}

@@ -1,0 +1,102 @@
+---
+/**
+ * Reusable page header. If a `cover` image is set (via the CMS "Page cover
+ * images" screen), it renders a full-bleed banner with the title overlaid;
+ * otherwise it falls back to the calm blush band. Used on every main page.
+ */
+import CmsImage from './CmsImage.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  cover?: string;
+  coverAlt?: string;
+  crumbs?: { name: string; path: string }[];
+}
+const { eyebrow, title, lead, cover, coverAlt, crumbs } = Astro.props;
+const hasCover = Boolean(cover);
+---
+
+<section class:list={['page-hero', hasCover ? 'page-hero--cover' : 'band band--blush']}>
+  {hasCover && (
+    <div class="page-hero__bg" aria-hidden="true">
+      <CmsImage
+        src={cover}
+        alt={coverAlt ?? ''}
+        fill
+        widths={[640, 1024, 1600, 2048]}
+        sizes="100vw"
+        loading="eager"
+      />
+    </div>
+  )}
+  <div class="container page-hero__content">
+    {crumbs && <Breadcrumbs items={crumbs} />}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero--cover {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(46vh, 26rem);
+    padding-block: var(--space-7) var(--space-6);
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .page-hero--cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(26, 26, 26, 0.15) 0%, rgba(26, 26, 26, 0.72) 100%);
+  }
+
+  .page-hero__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-hero--cover .page-hero__content :global(.crumbs a),
+  .page-hero--cover .page-hero__content :global(.crumbs span[aria-current]) {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .page-hero--cover .eyebrow {
+    color: var(--blush);
+  }
+
+  .page-hero--cover h1 {
+    color: var(--white);
+  }
+
+  .page-hero--cover .lead {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .page-hero--cover .page-hero__content {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .page-hero--cover :global(.btn--ghost) {
+    color: var(--white);
+  }
+
+  .page-hero--cover :global(.branch-hero__note) {
+    color: rgba(255, 255, 255, 0.85);
+  }
+</style>

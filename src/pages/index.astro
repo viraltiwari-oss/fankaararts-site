@@ -112,12 +112,33 @@ const accomplishmentsTeaser = [
 
   {/* ---------------- Intro ---------------- */}
   <section class="band band--blush">
-    <div class="container container--narrow text-center reveal">
-      <p class="eyebrow">{intro.eyebrow}</p>
-      <h2>{intro.heading}</h2>
-      <p class="intro-text">{intro.text}</p>
-      <MotifDivider />
-      <a href={intro.ctaUrl} class="btn btn--ghost">{intro.ctaLabel}</a>
+    <div class="container">
+      {intro.image ? (
+        <div class="home-intro">
+          <div class="home-intro__media reveal">
+            <CmsImage
+              src={intro.image}
+              alt={intro.imageAlt ?? ''}
+              ratio="4/5"
+              sizes="(max-width: 860px) 100vw, 42vw"
+            />
+          </div>
+          <div class="home-intro__text reveal">
+            <p class="eyebrow">{intro.eyebrow}</p>
+            <h2>{intro.heading}</h2>
+            <p class="intro-text">{intro.text}</p>
+            <a href={intro.ctaUrl} class="btn btn--ghost">{intro.ctaLabel}</a>
+          </div>
+        </div>
+      ) : (
+        <div class="container--narrow text-center reveal" style="margin-inline: auto;">
+          <p class="eyebrow">{intro.eyebrow}</p>
+          <h2>{intro.heading}</h2>
+          <p class="intro-text">{intro.text}</p>
+          <MotifDivider />
+          <a href={intro.ctaUrl} class="btn btn--ghost">{intro.ctaLabel}</a>
+        </div>
+      )}
     </div>
   </section>
 
@@ -351,6 +372,31 @@ const accomplishmentsTeaser = [
   .intro-text {
     font-size: var(--text-lg);
     line-height: 1.7;
+  }
+
+  .home-intro {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .home-intro {
+      grid-template-columns: 42% 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  .home-intro__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    max-width: 26rem;
+  }
+
+  @media (max-width: 859px) {
+    .home-intro__media {
+      margin-inline: auto;
+    }
   }
 
   /* ---------- Disciplines ---------- */

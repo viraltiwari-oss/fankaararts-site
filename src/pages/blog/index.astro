@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PostCard from '../../components/PostCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import PageHero from '../../components/PageHero.astro';
+import pages from '../../data/pages.json';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -14,19 +16,14 @@ const posts = (await getCollection('blog')).sort(
   title="Blog — Kathak, Music & Learning | Fankaar Institute, Jaipur"
   description="Guides and reflections on Kathak, Hindustani classical music, exams and learning from Fankaar Institute of Performing Arts, Jaipur. Written for students and parents."
 >
-  <section class="band band--blush">
-    <div class="container">
-      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }]} />
-      <div class="section-head">
-        <p class="eyebrow">Journal</p>
-        <h1>From the studio</h1>
-        <p class="lead">
-          Guides for parents, notes for students, and reflections on the arts
-          we teach — written by the people who teach them.
-        </p>
-      </div>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Journal"
+    title="From the studio"
+    lead="Guides for parents, notes for students, and reflections on the arts we teach — written by the people who teach them."
+    cover={pages.blog.cover}
+    coverAlt={pages.blog.coverAlt}
+    crumbs={[{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }]}
+  />
 
   <section class="band">
     <div class="container">
