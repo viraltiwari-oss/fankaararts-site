@@ -1,28 +1,28 @@
 {
-  "siteName": "Fankaar Institute of Performing Arts",
-  "shortName": "Fankaar",
-  "tagline": "Preserving Heritage, Nurturing Artistry.",
-  "taglineHindi": "नृत्य • संगीत",
+  "defaultOgImage": "/og-default.png",
   "domain": "https://fankaararts.com",
-  "phone": "7976014592",
-  "whatsapp": "917976014592",
-  "whatsappMessage": "Namaste! I found Fankaar's website and would like to know more about classes.",
-  "email": "art.fankar@gmail.com",
-  "hours": "Class hours vary by branch — see each branch page. Enquiries: 10 AM – 8 PM, all days.",
+  "taglineHindi": "नृत्य • संगीत",
+  "shortName": "Fankaar",
   "social": {
     "instagram": "https://www.instagram.com/fankaararts",
     "facebook": "",
     "youtube": ""
   },
-  "defaultOgImage": "/og-default.png",
+  "phone": "7976014592",
+  "tagline": "Preserving Heritage, Nurturing Artistry.",
+  "forms": {
+    "web3formsKey": ""
+  },
+  "hours": "Class hours vary by branch — see each branch page. Enquiries: 10 AM – 8 PM, all days.",
+  "whatsapp": "917976014592",
+  "siteName": "Fankaar Institute of Performing Arts",
+  "whatsappMessage": "Namaste! I found Fankaar's website and would like to know more about classes.",
   "tracking": {
-    "gtmId": "",
+    "gtmId": "GTM-MKMTR7VV",
     "ga4Id": "",
     "metaPixelId": "",
     "googleAdsId": "",
     "gscVerification": ""
   },
-  "forms": {
-    "web3formsKey": ""
-  }
+  "email": "art.fankar@gmail.com"
 }
