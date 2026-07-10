@@ -4,16 +4,34 @@
     "highlightWord": "fankaar",
     "subtext": "Authentic Kathak & Hindustani classical music, for every age — across Jaipur & online.",
     "videoUrl": "",
-    "image": "",
+    "image": "/src/assets/uploads/whatsapp-image-2026-07-03-at-18.11.28-4-.jpeg",
     "imageAlt": "Kathak dancer mid-spin at a Fankaar recital",
-    "ctaPrimary": { "label": "Enquire on WhatsApp", "type": "whatsapp" },
-    "ctaSecondary": { "label": "Explore courses", "url": "/courses" }
+    "ctaPrimary": {
+      "label": "Enquire on WhatsApp",
+      "type": "whatsapp"
+    },
+    "ctaSecondary": {
+      "label": "Explore courses",
+      "url": "/courses"
+    }
   },
   "stats": [
-    { "value": "20+", "label": "Years of teaching legacy" },
-    { "value": "175+", "label": "Students trained" },
-    { "value": "3", "label": "CCRT scholars" },
-    { "value": "4", "label": "Branches across Jaipur" }
+    {
+      "value": "20+",
+      "label": "Years of teaching legacy"
+    },
+    {
+      "value": "175+",
+      "label": "Students trained"
+    },
+    {
+      "value": "3",
+      "label": "CCRT scholars"
+    },
+    {
+      "value": "4",
+      "label": "Branches across Jaipur"
+    }
   ],
   "intro": {
     "eyebrow": "Welcome to Fankaar",
