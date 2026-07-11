@@ -1,11 +1,38 @@
 {
-  "about": { "cover": "", "coverAlt": "" },
-  "branches": { "cover": "", "coverAlt": "" },
-  "courses": { "cover": "", "coverAlt": "" },
-  "workshops": { "cover": "", "coverAlt": "" },
-  "events": { "cover": "", "coverAlt": "" },
-  "accomplishments": { "cover": "", "coverAlt": "" },
-  "blog": { "cover": "", "coverAlt": "" },
-  "contact": { "cover": "", "coverAlt": "" },
-  "enquiry": { "cover": "", "coverAlt": "" }
+  "contact": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "blog": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "enquiry": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "workshops": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "about": {
+    "cover": "/src/assets/uploads/whatsapp-image-2026-07-09-at-13.58.13.jpeg",
+    "coverAlt": ""
+  },
+  "branches": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "accomplishments": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "courses": {
+    "cover": "",
+    "coverAlt": ""
+  },
+  "events": {
+    "cover": "",
+    "coverAlt": ""
+  }
 }
