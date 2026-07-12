@@ -1,18 +1,18 @@
 {
   "contact": {
-    "cover": "",
+    "cover": "/src/assets/uploads/rav02182.jpg",
     "coverAlt": ""
   },
   "blog": {
-    "cover": "",
+    "cover": "/src/assets/uploads/lifesketch-289-.jpg",
     "coverAlt": ""
   },
   "enquiry": {
-    "cover": "",
+    "cover": "/src/assets/uploads/rav02779.jpg",
     "coverAlt": ""
   },
   "workshops": {
-    "cover": "",
+    "cover": "/src/assets/uploads/lsp07484.jpg",
     "coverAlt": ""
   },
   "about": {
@@ -20,11 +20,11 @@
     "coverAlt": ""
   },
   "branches": {
-    "cover": "",
-    "coverAlt": ""
+    "cover": "/src/assets/uploads/lsp06685.jpg",
+    "coverAlt": "Kathak students together"
   },
   "accomplishments": {
-    "cover": "",
+    "cover": "/src/assets/uploads/lsp06308.jpg",
     "coverAlt": ""
   },
   "courses": {
@@ -32,7 +32,7 @@
     "coverAlt": ""
   },
   "events": {
-    "cover": "",
+    "cover": "/src/assets/uploads/lifesketch-199-.jpg",
     "coverAlt": ""
   }
 }
