@@ -26,7 +26,6 @@ seo:
     Jaipur — authentic guru-shishya training for students across India and
     abroad. Hindustani vocal on request. Enquire on WhatsApp.
 ---
-
-Fankaar's online classroom carries the same training that runs in our Jaipur studios to students anywhere — other Indian cities, or abroad. Classes are live and interactive (never recorded lectures): the guru watches, corrects and demonstrates in real time, and students progress through the same Prarambhik → Praveshika → Visharad stages as in-person learners.
+Fankaar's online classroom carries the same training that runs in our Jaipur studios to students anywhere — other Indian cities, or abroad. Classes are live and interactive (never recorded lectures): the guru watches, corrects and demonstrates in real time, and students progress through the same Prarambhik → Madhyama → Visharad → Alankaar stages as in-person learners.
 
 Kathak is the heart of our online programme; Hindustani vocal is available on request, subject to current batch availability. Message us on WhatsApp and we'll match you to a slot that suits your time zone.
