@@ -29,7 +29,10 @@ faculty:
   - vartika-tiwari
   - rahul-bhalia
   - mriganki-sharma
-photos: []
+photos:
+  - /src/assets/uploads/lsp07868.jpg
+  - /src/assets/uploads/whatsapp-image-2026-07-12-at-18.37.01.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-07-12-at-18.40.33.jpeg
 order: 1
 seo:
   title: Kathak & Vocal Classes in Malviya Nagar, Jaipur | Fankaar
