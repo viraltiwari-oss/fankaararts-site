@@ -1,7 +1,13 @@
 ---
 name: Mriganki Sharma
 role: Assistant Instructor- Kathak
-credentials: ""
+credentials: Master of Performing Arts (Kathak) – Raja Mansingh Tomar Music &
+  Arts University (Pursuing) (p. 1)Visharad & MA Diploma in Kathak – Pracheen
+  Kala Kendra & Bhatkhande Sangeet Vidyapeeth (p. 1)Pravashika Poorna in Kathak
+  – Akhil Bharatiya Gandharv Mahavidhayalaya Mandal (p. 1)Kathak Instructor &
+  Intern – Fankaar Arts (p. 1)Former Dance Teacher – Jayshree Periwal Global
+  School (p. 1)Assistant Choreographer – Heirs of the Peacock Throne & B. Lal
+  Institute (p. 1)
 branches:
   - malviya-nagar
 photo: /src/assets/uploads/img_3107.jpg
