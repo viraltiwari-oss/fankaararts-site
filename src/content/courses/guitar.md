@@ -1,7 +1,8 @@
 ---
 name: Guitar
 discipline: Instrument
-short: Acoustic guitar from the first chord to confident playing — technique, songs and theory in equal measure. Taught at our Tonk Road branch.
+short: Acoustic guitar from the first chord to confident playing — technique,
+  songs and theory in equal measure. Taught at our Tonk Road branch.
 ageRange: 8+
 mode: Offline
 fee: On enquiry
@@ -12,10 +13,13 @@ levels:
     detail: Barre chords, fingerstyle, scales, and playing with rhythm backing.
 levelsNote: Progression is skill-based; ask us about exam options at enquiry.
 examBoards: []
+image: /src/assets/uploads/image_4d5dbc3.png
 order: 3
 seo:
   title: Guitar Classes on Tonk Road, Jaipur | Fankaar
-  description: Guitar classes at Fankaar's Tonk Road branch, Jaipur — Mon/Wed/Fri afternoons. Structured beginner-to-intermediate training for kids and adults. Fees on enquiry.
+  description: Guitar classes at Fankaar's Tonk Road branch, Jaipur — Mon/Wed/Fri
+    afternoons. Structured beginner-to-intermediate training for kids and
+    adults. Fees on enquiry.
 ---
 
 Guitar at Fankaar is taught the way we teach everything: fundamentals first. Students learn correct posture and hand position before speed, real chord vocabulary before shortcuts, and enough theory to understand *why* a song works — not just how to copy it.
