@@ -4,8 +4,6 @@ locality: Jagatpura, Jaipur
 headline: Kathak Classes in Jagatpura, Jaipur
 online: false
 address: D-164 Shiv Officer's Colony, Ram Nagariya Road, Jagatpura Jaipur 302017
-addressNote: Full address coming soon — tap “Get directions” or WhatsApp us and
-  we'll guide you to the studio.
 mapLink: https://share.google/LPYQ1rLgzBnVpvKFo
 cover: /src/assets/uploads/whatsapp-image-2026-07-03-at-18.11.27.jpeg
 timings:
