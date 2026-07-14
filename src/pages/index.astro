@@ -9,6 +9,7 @@ import EventCard from '../components/EventCard.astro';
 import WorkshopCard from '../components/WorkshopCard.astro';
 import TestimonialQuote from '../components/TestimonialQuote.astro';
 import CtaBand from '../components/CtaBand.astro';
+import GhungrooStrand from '../components/GhungrooStrand.astro';
 import home from '../data/home.json';
 import { waLink, isUpcoming } from '../lib/site';
 
@@ -266,6 +267,9 @@ const accomplishmentsTeaser = [
     heading="Ready for the first step?"
     text="Tell us who's learning — a child, an adult, a family — and we'll suggest the right course, branch and batch."
   />
+
+  {/* Decorative interactive ghungroo strand — homepage only */}
+  <GhungrooStrand />
 </BaseLayout>
 
 <style>

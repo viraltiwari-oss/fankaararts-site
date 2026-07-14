@@ -1,0 +1,161 @@
+---
+/*
+  GhungrooStrand — homepage-only decorative flourish.
+  A long strand of ghungroo (Kathak ankle bells) down the right edge that
+  scrolls WITH the page. Bells ring softly on hover (desktop) and as they
+  pass the viewport centre while scrolling (mobile). Pure Web Audio — no
+  files, so no weight cost. Courtesy built in: silent until the first tap,
+  a mute toggle, reduced-motion support, and it never blocks taps on mobile.
+*/
+---
+
+<div class="ghungroo" id="ghungroo" aria-hidden="true">
+  <svg class="ghungroo__svg" id="ghungrooSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs>
+      <radialGradient id="ghGold" cx="34%" cy="27%" r="82%">
+        <stop offset="0%" stop-color="#fff6cf"></stop>
+        <stop offset="42%" stop-color="#e8ba46"></stop>
+        <stop offset="100%" stop-color="#87620f"></stop>
+      </radialGradient>
+      <linearGradient id="ghRope" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#cdbfa4"></stop>
+        <stop offset="50%" stop-color="#f4eedf"></stop>
+        <stop offset="100%" stop-color="#c2b393"></stop>
+      </linearGradient>
+    </defs>
+    <path class="ghungroo__cord" id="ghCord" fill="none" stroke="url(#ghRope)" stroke-width="4.5" stroke-linecap="round"></path>
+    <g id="ghBells"></g>
+  </svg>
+</div>
+<button class="ghungroo__mute" id="ghungrooMute" type="button" aria-label="Mute ghungroo sound" hidden>
+  <span aria-hidden="true">🔔</span>
+</button>
+
+<style is:global>
+  .ghungroo{position:absolute;top:0;right:0;width:76px;height:0;z-index:1;pointer-events:none;overflow:hidden;}
+  .ghungroo__svg{display:block;width:76px;height:100%;overflow:visible;}
+  .ghungroo__cord{opacity:.9;}
+  .gh-bell{cursor:pointer;}
+  .gh-idle{transform-box:fill-box;transform-origin:50% 6%;}
+  .gh-swing{transform-box:fill-box;transform-origin:50% 6%;}
+  .gh-swing.ring{animation:ghSwing .62s cubic-bezier(.3,.6,.4,1);}
+  @keyframes ghSwing{0%{transform:rotate(0)}18%{transform:rotate(12deg)}42%{transform:rotate(-9deg)}64%{transform:rotate(6deg)}82%{transform:rotate(-3deg)}100%{transform:rotate(0)}}
+  @keyframes ghIdle{from{transform:rotate(-1.5deg)}to{transform:rotate(1.5deg)}}
+  .gh-slit{stroke:#6e4e10;stroke-width:1.2;fill:none;opacity:.75;}
+  .gh-hole{fill:#5c3f0c;opacity:.8;}
+  .gh-hi{fill:#fffbe8;opacity:.5;}
+  .gh-cap{fill:#c9a53a;}
+  @media (hover:hover) and (pointer:fine){
+    .ghungroo.is-desktop .gh-bell{pointer-events:auto;}
+    .ghungroo.is-desktop .gh-idle{animation:ghIdle var(--gh-dur,4.6s) ease-in-out infinite alternate;animation-delay:var(--gh-delay,0s);}
+  }
+  @media (max-width:768px){.ghungroo{width:52px;opacity:.85;}.ghungroo__svg{width:52px;}}
+  .ghungroo__mute{position:fixed;left:14px;bottom:14px;z-index:60;width:38px;height:38px;border-radius:50%;
+    border:1px solid #e6d3c9;background:#fff;color:#AF554F;font-size:15px;line-height:1;cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;pointer-events:auto;transition:.2s;}
+  .ghungroo__mute:hover{background:#E66F67;color:#fff;border-color:#E66F67;}
+  @media (prefers-reduced-motion:reduce){.gh-swing.ring{animation:none;}.gh-idle{animation:none !important;}}
+</style>
+
+<script is:inline>
+(function(){
+  function boot(){
+    var host=document.getElementById('ghungroo'), mute=document.getElementById('ghungrooMute');
+    if(!host||!mute) return;
+    document.body.appendChild(host);                 // anchor to <body> so it spans the whole page
+    var svg=document.getElementById('ghungrooSvg'), cordEl=document.getElementById('ghCord'), bellsG=document.getElementById('ghBells');
+    var isDesktop=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    if(isDesktop) host.classList.add('is-desktop');
+    var narrow=window.innerWidth<=768;
+    var W=narrow?52:76, cx=narrow?26:38, amp=narrow?6:8, maxBells=isDesktop?150:88;
+    var bells=[];
+    function xat(y){return cx+Math.sin(y*0.02)*amp;}
+
+    function build(){
+      var H=Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, window.innerHeight);
+      host.style.height=H+'px';
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      var d='M '+xat(10)+' 10'; for(var y=10;y<=H-8;y+=16) d+=' L '+xat(y)+' '+y; cordEl.setAttribute('d',d);
+      bellsG.textContent=''; bells=[];
+      var top=130, bot=H-130, span=bot-top; if(span<200) return;
+      var spacing=Math.min(46, Math.max(26, span/maxBells)), i=0;
+      for(var y=top; y<=bot; y+=spacing){
+        var bx=xat(y)+(i%2?4.5:-4.5), r=10.5;
+        var outer=document.createElementNS('http://www.w3.org/2000/svg','g'); outer.setAttribute('transform','translate('+bx.toFixed(1)+','+y.toFixed(1)+')');
+        var mid=document.createElementNS('http://www.w3.org/2000/svg','g'); mid.setAttribute('class','gh-idle');
+        mid.style.setProperty('--gh-dur',(3.8+Math.random()*2.4).toFixed(2)+'s');
+        mid.style.setProperty('--gh-delay',(-Math.random()*4.5).toFixed(2)+'s');
+        var inner=document.createElementNS('http://www.w3.org/2000/svg','g'); inner.setAttribute('class','gh-bell gh-swing'); inner.setAttribute('data-i',i);
+        inner.innerHTML='<line x1="0" y1="'+(-r-4)+'" x2="0" y2="'+(-r+1)+'" stroke="#b09a6e" stroke-width="1.4"></line>'
+          +'<circle class="gh-cap" cx="0" cy="'+(-r-3)+'" r="2.2"></circle>'
+          +'<circle cx="0" cy="0" r="'+r+'" fill="url(#ghGold)" stroke="#7a5a10" stroke-width="0.6"></circle>'
+          +'<path class="gh-slit" d="M '+(-r*0.72)+' '+(r*0.12)+' Q 0 '+(r*0.62)+' '+(r*0.72)+' '+(r*0.12)+'"></path>'
+          +'<circle class="gh-hole" cx="0" cy="'+(r*0.16)+'" r="'+(r*0.17)+'"></circle>'
+          +'<ellipse class="gh-hi" cx="'+(-r*0.34)+'" cy="'+(-r*0.36)+'" rx="'+(r*0.3)+'" ry="'+(r*0.18)+'"></ellipse>';
+        mid.appendChild(inner); outer.appendChild(mid); bellsG.appendChild(outer);
+        bells.push({el:inner,y:y,recent:false}); i++;
+      }
+    }
+
+    var ctx=null,master=null,muted=false,last=0,ready=false;
+    function makeIR(sec,decay){var n=(ctx.sampleRate*sec)|0,b=ctx.createBuffer(2,n,ctx.sampleRate);
+      for(var c=0;c<2;c++){var dt=b.getChannelData(c);for(var k=0;k<n;k++)dt[k]=(Math.random()*2-1)*Math.pow(1-k/n,decay);}return b;}
+    function initAudio(){ if(ctx) return;
+      try{ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}
+      var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=12000;
+      var comp=ctx.createDynamicsCompressor();comp.threshold.value=-24;comp.ratio.value=5;
+      master=ctx.createGain();master.gain.value=0.22;
+      master.connect(lp);lp.connect(comp);comp.connect(ctx.destination);
+      var conv=ctx.createConvolver();conv.buffer=makeIR(2.4,2.6);
+      var send=ctx.createGain();send.gain.value=0.28;master.connect(send);send.connect(conv);
+      var vlp=ctx.createBiquadFilter();vlp.type='lowpass';vlp.frequency.value=8500;conv.connect(vlp);vlp.connect(ctx.destination);
+      ready=true; mute.hidden=false;
+    }
+    function wake(){ initAudio(); if(ctx&&ctx.state==='suspended')ctx.resume(); }
+    ['pointerdown','touchstart','keydown'].forEach(function(ev){window.addEventListener(ev,wake,{passive:true});});
+
+    function pellet(f,gain,dur,when){var P=[[1,1],[1.5,0.6],[2.33,0.42],[3.5,0.26],[4.65,0.14]];
+      for(var k=0;k<P.length;k++){var o=ctx.createOscillator();o.type='sine';
+        o.frequency.value=f*P[k][0]*(1+(Math.random()-0.5)*0.012);
+        var g=ctx.createGain(),dd=dur*(0.5+Math.random()*0.6);g.gain.setValueAtTime(0.0001,when);
+        g.gain.exponentialRampToValueAtTime(gain*P[k][1],when+0.002);g.gain.exponentialRampToValueAtTime(0.0001,when+dd);
+        o.connect(g);g.connect(master);o.start(when);o.stop(when+dd);}}
+    function jingle(){ if(!ready||muted||!ctx) return; var t=ctx.currentTime,cl=3+((Math.random()*2)|0);
+      for(var c=0;c<cl;c++){var base=t+c*(0.01+Math.random()*0.05),n=6+((Math.random()*4)|0);
+        for(var i=0;i<n;i++){var when=base+i*(0.004+Math.random()*0.015),f=1650+Math.random()*1900;
+          pellet(f,0.009+Math.random()*0.01,0.34+Math.random()*0.42,when);}}}
+    function ring(o){ o.el.classList.remove('ring'); void o.el.getBoundingClientRect(); o.el.classList.add('ring');
+      setTimeout(function(){o.el.classList.remove('ring');},660); }
+
+    svg.addEventListener('pointerover',function(e){
+      if(!isDesktop||!e.target.closest) return;
+      var t=e.target.closest('.gh-bell'); if(!t) return;
+      var b=bells[+t.getAttribute('data-i')]; if(!b) return; ring(b);
+      var now=performance.now(); if(now-last<60) return; last=now; jingle();
+    });
+
+    var ticking=false;
+    window.addEventListener('scroll',function(){
+      if(ticking) return; ticking=true;
+      requestAnimationFrame(function(){ ticking=false;
+        var center=window.scrollY+window.innerHeight*0.5, hit=false;
+        for(var k=0;k<bells.length;k++){var b=bells[k];
+          if(!b.recent && Math.abs(b.y-center)<18){ ring(b); b.recent=true; hit=true;
+            (function(bb){setTimeout(function(){bb.recent=false;},430);})(b); } }
+        if(hit){ var now=performance.now(); if(now-last>60){ last=now; jingle(); } }
+      });
+    },{passive:true});
+
+    mute.addEventListener('click',function(){ muted=!muted;
+      mute.querySelector('span').textContent=muted?'🔕':'🔔';
+      mute.setAttribute('aria-label',muted?'Unmute ghungroo sound':'Mute ghungroo sound');
+      if(!muted) wake();
+    });
+
+    build();
+    var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,300);},{passive:true});
+    setTimeout(build,900);
+  }
+  if(document.readyState==='complete') boot(); else window.addEventListener('load',boot);
+})();
+</script>
