@@ -23,7 +23,13 @@ const {
   publishedTime,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', settings.domain).href;
+// The site serves directory-style URLs (/about/), so the canonical must match
+// exactly. Previously this stripped the slash, pointing the canonical at a URL
+// that redirects — which is why Search Console reported "Page with redirect".
+const canonicalPath = Astro.url.pathname.endsWith('/')
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonical = new URL(canonicalPath, settings.domain).href;
 const ogImageAbs = ogImage.startsWith('http') ? ogImage : absoluteUrl(ogImage);
 ---
 
