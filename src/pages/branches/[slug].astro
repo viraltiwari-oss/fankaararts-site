@@ -34,7 +34,7 @@ const branchFaculty = data.faculty
   .map((slug) => allFaculty.find((f) => f.id === slug))
   .filter(Boolean) as CollectionEntry<'faculty'>[];
 
-const path = `/branches/${branch.id}`;
+const path = `/branches/${branch.id}/`;
 const schema = branchSchema(
   {
     name: data.name,

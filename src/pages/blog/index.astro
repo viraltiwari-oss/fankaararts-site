@@ -27,6 +27,9 @@ const posts = (await getCollection('blog')).sort(
 
   <section class="band">
     <div class="container">
+      <div class="section-head reveal">
+        <h2>Latest articles</h2>
+      </div>
       {posts.length > 0 ? (
         <div class="grid grid--3">
           {posts.map((post, i) => (

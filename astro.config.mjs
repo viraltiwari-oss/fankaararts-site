@@ -62,6 +62,8 @@ export default defineConfig({
       // sitemap never hands Google a URL that redirects.
       serialize: (item) => {
         if (!item.url.endsWith('/')) item.url += '/';
+        // lastmod on every URL — a fresh recrawl signal to Google each build.
+        item.lastmod = new Date().toISOString();
         return item;
       },
     }),

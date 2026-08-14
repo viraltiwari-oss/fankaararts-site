@@ -20,7 +20,7 @@ const rendered = await Promise.all(
 const schemas = courses.map((c) =>
   courseSchema(
     { name: c.data.name, short: c.data.short, mode: c.data.mode, levels: c.data.levels },
-    `/courses#${c.id}`
+    `/courses/#${c.id}`
   )
 );
 

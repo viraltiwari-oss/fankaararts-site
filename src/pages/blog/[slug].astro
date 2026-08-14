@@ -20,7 +20,7 @@ interface Props {
 const { post } = Astro.props;
 const { data } = post;
 const { Content } = await render(post);
-const path = `/blog/${post.id}`;
+const path = `/blog/${post.id}/`;
 
 const related = (await getCollection('blog'))
   .filter((p) => p.id !== post.id)
