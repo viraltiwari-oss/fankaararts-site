@@ -1,5 +1,5 @@
 ---
-quote: >-
+quote: >+
   As the mother of Nirvi and Nitara Ajmera, I am truly grateful to be a part of
   Fankaar Institute of Performing Arts.
 
@@ -9,8 +9,6 @@ quote: >-
 
   The Kathak class has such a warm, positive, and encouraging environment that every child feels welcomed and motivated to learn. Fankaar is truly a beautiful place to experience the grace and tradition of Kathak.
 
-
-  — Pallavi Ajmera
 person: Pallavi Ajmera
 role: Parent
 date: August 2026
