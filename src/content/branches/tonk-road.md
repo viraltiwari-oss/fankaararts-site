@@ -29,11 +29,11 @@ photos:
 order: 2
 seo:
   title: Kathak & Music Classes on Tonk Road, Jaipur | Fankaar
-  description: Kathak, Hindustani vocal, guitar and keyboard classes on Tonk Road
-    (Imli Phatak), Jaipur — Fankaar Institute of Performing Arts. Small batches,
-    exam-oriented training. Enquire on WhatsApp.
+  description: Learn Kathak and Hindustani Classical Music - Vocal, Guitar,
+    Keyboard in Imli Phatak Tonk Road, Jaipur at Fankaar Institute of Performing
+    Arts. Guru-Shishya Parampara, Exam-Oriented levels, Ages 6–70+. Enquire on
+    WhatsApp.
 ---
+Talk Road Branch is one of our most versatile spaces, bringing dance and music together under one roof. Evenings are dedicated to Kathak, taught under the direct guidance of Founder-Director Vartika Tiwari, creating a focused environment for learning, practice, and artistic growth.
 
-Tonk Road is our most versatile branch — the only one where dance and instruments share a roof. Evenings belong to Kathak, taught under founder Vartika Tiwari's direct guidance; afternoons alternate between Hindustani vocal, guitar and keyboard.
-
-If your family wants one address for both dance and music, this is it — a sibling can learn guitar while another prepares a Kathak chakkardaar in the next room.
+Afternoons offer training in Hindustani Vocal, Guitar, and Keyboard, making the branch a convenient creative space for the entire family. Whether one sibling is learning guitar while another prepares a Kathak Chakaardar, this branch brings multiple art forms together at one address.
