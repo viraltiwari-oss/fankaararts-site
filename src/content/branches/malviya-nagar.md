@@ -21,8 +21,8 @@ timings:
     time: 4:00 – 5:00 PM
     days: Tue · Thu · Sat
 courses:
-  - Kathak
-  - Hindustani-Vocal
+  - kathak
+  - hindustani-vocal
   - Guitar
   - Keyboard
 faculty:
