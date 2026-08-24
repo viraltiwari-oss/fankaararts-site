@@ -34,6 +34,6 @@ seo:
     Arts. Guru-Shishya Parampara, Exam-Oriented levels, Ages 6–70+. Enquire on
     WhatsApp.
 ---
-Talk Road Branch is one of our most versatile spaces, bringing dance and music together under one roof. Evenings are dedicated to Kathak, taught under the direct guidance of Founder-Director Vartika Tiwari, creating a focused environment for learning, practice, and artistic growth.
+Tonk Road Branch is one of our most versatile spaces, bringing dance and music together under one roof. Evenings are dedicated to Kathak, taught under the direct guidance of Founder-Director Vartika Tiwari, creating a focused environment for learning, practice, and artistic growth.
 
-Afternoons offer training in Hindustani Vocal, Guitar, and Keyboard, making the branch a convenient creative space for the entire family. Whether one sibling is learning guitar while another prepares a Kathak Chakaardar, this branch brings multiple art forms together at one address.
+Afternoons offer training in Hindustani Vocal, Guitar, and Keyboard, making the branch a convenient creative space for the entire family. Whether one sibling is learning guitar while another prepares a Kathak Chakardaar, this branch brings multiple art forms together at one address.
