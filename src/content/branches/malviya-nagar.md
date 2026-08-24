@@ -21,14 +21,14 @@ timings:
     time: 4:00 – 5:00 PM
     days: Tue · Thu · Sat
 courses:
-  - kathak
-  - hindustani-vocal
+  - Kathak
+  - Hindustani Classical Music -Vocal
   - Guitar
   - Keyboard
 faculty:
-  - vartika-tiwari
-  - rahul-bhalia
-  - mriganki-sharma
+  - Vartika Tiwari
+  - Rahul Bhalia
+  - Mrigankee Sharma
 photos:
   - /src/assets/uploads/lsp07868.jpg
   - /src/assets/uploads/whatsapp-image-2026-07-12-at-18.37.01.jpeg
@@ -36,10 +36,10 @@ photos:
 order: 1
 seo:
   title: Kathak & Vocal Classes in Malviya Nagar, Jaipur | Fankaar
-  description: Learn Kathak and Hindustani classical vocal in Malviya Nagar,
-    Jaipur at Fankaar Institute of Performing Arts. Guru-shishya mentorship,
-    exam-oriented levels, ages 6–70+. Enquire on WhatsApp.
+  description: Learn Kathak and Hindustani Classical Music - Vocal in Malviya
+    Nagar, Jaipur at Fankaar Institute of Performing Arts. Guru-Shishya
+    Parampara, Exam-Oriented levels, Ages 6–70+. Enquire on WhatsApp.
 ---
-Our Malviya Nagar branch is Fankaar's busiest classroom — Kathak three evenings a week and Hindustani vocal on alternate days, minutes from Gaurav Tower and the heart of south Jaipur. Batches are kept small so every student, from a six-year-old beginner to an adult returning to music, gets personal correction and care.
+Our Malviya Nagar branch is one of our busiest learning spaces, offering Kathak classes three evenings a week and Hindustani Classical Vocal on alternate days. Located just minutes from World Trade Park, in the heart of South Jaipur, the branch maintains small, focused batches so that every student—from a six-year-old beginner to an adult returning to music or dance—receives personal attention, individual corrections, and dedicated guidance.
 
-Training follows the recognised exam path (Prarambhik → Madhyama → Visharad → Alankaar) with annual examinations through boards like Prachin Kala Kendra, Gandharva and Bhatkhande Mahavidyalaya — and every student gets stage time at our recitals.
+Our training follows recognised examination patterns, progressing from Prarambhik → Madhyama → Visharad → Alankaar, with annual examinations conducted through established boards such as Bhatkhande Sangeet Vidyapeeth, Lucknow; Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai; Pracheen Kala Kendra, Chandigarh. Every student also receives opportunities to perform and gain stage experience through our regular recitals.
