@@ -26,9 +26,7 @@ courses:
   - guitar
   - keyboard
 faculty:
-  - vartika-tiwari
-  - rahul-bhalia
-  - mrigankee-sharma
+  - vartika-tiwari rahul-bhalia mrigankee-sharma
 photos:
   - /src/assets/uploads/lsp07868.jpg
   - /src/assets/uploads/whatsapp-image-2026-07-12-at-18.37.01.jpeg
