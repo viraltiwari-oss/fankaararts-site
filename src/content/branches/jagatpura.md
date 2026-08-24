@@ -3,7 +3,7 @@ name: Jagatpura
 locality: Jagatpura, Jaipur
 headline: Kathak Classes in Jagatpura, Jaipur
 online: false
-address: D-164 Shiv Officer's Colony, Ram Nagariya Road, Jagatpura Jaipur 302017
+address: D-164, Shiv Officer's Colony, Ram Nagariya Road, Jagatpura Jaipur 302017
 mapLink: https://share.google/LPYQ1rLgzBnVpvKFo
 cover: /src/assets/uploads/whatsapp-image-2026-07-03-at-18.11.27.jpeg
 timings:
@@ -23,11 +23,11 @@ photos:
 order: 3
 seo:
   title: Kathak Classes in Jagatpura, Jaipur | Fankaar
-  description: Kathak classes in Jagatpura, Jaipur with founder Vartika Tiwari —
-    Fankaar Institute of Performing Arts. Evening batches Mon/Wed/Fri, ages
-    6–70+, exam-oriented training. Enquire on WhatsApp.
+  description: Kathak classes in Jagatpura, Jaipur — taught by Founder-Director
+    Vartika Tiwari at Fankaar Institute of Performing Arts. Evening batches on
+    Tuesday, Thrusday, Saturday. Enquire on WhatsApp.
   ogImage: /src/assets/uploads/lsp06685.jpg
 ---
-Our Jagatpura branch brings Fankaar's Kathak training to fast-growing southeast Jaipur. Evening batches run three days a week and are taught personally by founder Vartika Tiwari — the same guru-shishya attention, close to home for families in Jagatpura, Model Town, Pratap Nagar and the university belt.
+Our Jagatpura branch brings Fankaar’s Kathak training to fast-growing southeast Jaipur. Evening batches run three days a week and are taught personally by Founder-Director Vartika Tiwari, offering the same focused Guru-Shishya Parampara that defines Fankaar's training, close to home for families in Jagatpura, Model Town, Pratap Nagar, and the University Belt.
 
-Beginners are welcome round the year; students progress through the Prarambhik → Alankaar exam stages at their own pace.
+Beginners are welcome to join throughout the year. Students progress through Prarambhik, Madhyama, Visharad, and Alankaar exam stages at their own pace, following a structured training path that balances foundational technique, practice, and steady artistic development.
