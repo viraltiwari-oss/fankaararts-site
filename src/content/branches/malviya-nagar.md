@@ -22,7 +22,7 @@ timings:
     days: Tue · Thu · Sat
 courses:
   - Kathak
-  - Hindustani Classical Music -Vocal
+  - Hindustani-Vocal
   - Guitar
   - Keyboard
 faculty:
