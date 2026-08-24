@@ -7,7 +7,7 @@ venue: Nirman Nagar Branch
 fee: On enquiry
 image: /src/assets/uploads/529e0b89-6ae5-4bb5-9bd9-d3e4e92ee710.jpg
 seo:
-  title: Beginner Kathak Workshop in Nirman Nagar | FankaarArts
+  title: Beginner Kathak Workshop in Nirman Nagar | Fankaar
   description: Explore Fankaar's six-day Beginner Kathak Workshop held at the
     Nirman Nagar branch in June 2024, led by Founder-Director Vartika Tiwari.
 ---
