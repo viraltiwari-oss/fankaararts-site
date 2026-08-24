@@ -4,7 +4,7 @@ locality: Pan-India & Abroad
 headline: Online Kathak & Hindustani Classical Music Classes
 online: true
 address: ""
-addressNote: Live classes from Jaipur to anywhere in the world.
+addressNote: Online classes from Jaipur to anywhere in the world.
 cover: /src/assets/uploads/lsp06308.jpg
 timings:
   - course: Kathak (live online)
