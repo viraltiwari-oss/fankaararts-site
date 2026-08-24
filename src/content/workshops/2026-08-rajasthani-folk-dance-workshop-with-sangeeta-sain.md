@@ -1,5 +1,5 @@
 ---
-title: Rajasthani Folk Dance Workshop with Sangeeta Sain
+title: "Rajasthani Folk Dance Workshop "
 start: 2026-06-24T05:00:00.000+05:30
 end: 2026-06-27T07:00:00.000+05:30
 mode: In-person
