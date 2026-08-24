@@ -24,8 +24,8 @@ order: 4
 seo:
   title: Kathak Classes in Nirman Nagar, Jaipur | Fankaar
   description: Kathak classes in Nirman Nagar / Rani Sati Nagar, Jaipur — taught
-    by f=Founder-Director Vartika Tiwari at Fankaar Institute of Performing
-    Arts. Evening batches on Tuesday, Thrusday, Saturday. Enquire on WhatsApp.
+    by Founder-Director Vartika Tiwari at Fankaar Institute of Performing Arts.
+    Evening batches on Tuesday, Thrusday, Saturday. Enquire on WhatsApp.
 ---
 Serving West Jaipur, including Nirman Nagar, Rani Sati Nagar, Shyam Nagar and surrounding areas, this branch offers Kathak training three evenings a week under the guidance of Founder-Director Vartika Tiwari herself. Classes are held from 5:00 to 6:00 PM, with timings thoughtfully planned to allow school-going children to attend comfortably after school hours.
 
