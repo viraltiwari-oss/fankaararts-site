@@ -1,8 +1,9 @@
 ---
 name: Kathak
 discipline: Dance
-short: North India's classical storytelling dance — footwork, spins, abhinaya
-  and rhythm — taught from first tatkaar to Visharad, for ages 6 to 70+.
+short: North India's classical storytelling dance exploring tatkaar, footwork,
+  chakkars, abhinaya and rhythm, from the first tatkaar to advanced repertorie.
+  Classes for ages 6 to 70+.
 ageRange: 6 – 70+
 mode: Online + Offline
 fee: On enquiry
@@ -14,22 +15,22 @@ levels:
   - name: Visharad
     detail: ""
   - name: Alankaar
-levelsNote: Levels follow recognised exam-stage names; students appear for
-  annual examinations through affiliated boards.
+levelsNote: Levels follow recognised exam-stages, with students processing
+  through structured training and appearing for annual examinations through
+  affiliated boards.
 examBoards:
-  - Bhatkhande Sangeet Mahavidyalay, Lucknow
-  - Gandharva Mahavidyalaya
-  - Pracheen Kala Kendra
+  - Bhatkhande Sangeet Vidhyapeeth, Lucknow
+  - Akhil Bhartiya Gandharva Mahavidyalaya Mandal, Mumbai
+  - Pracheen Kala Kendra, Chandigarh
 image: /src/assets/uploads/lifesketch-226-.jpg
 order: 1
 seo:
   title: Kathak Classes in Jaipur & Online — All Levels | Fankaar
-  description: Learn Kathak in Jaipur (4 branches) or live online with Fankaar.
-    Structured Prarambhik → Praveshika → Visharad training, annual board exams,
-    recitals, ages 6–70+. Fees on enquiry.
+  description: Learn Kathak in Jaipur at Fankaar Institue of Performing Arts, with
+    4 branches and live online classes. Structured training Prarambhik →
+    Praveshika → Visharad → Alankaar, annual board exams, recitals, ages 6–70+.
+    Fees on enquiry.
 ---
-Kathak is the classical dance of North India — the art of the *kathakaar*, the storyteller. It weaves rhythmic footwork, dazzling spins and delicate expression into narrative: a single dancer can hold a hall spellbound with nothing but ghungroos and a tabla.
+Kathak is the classical dance tradition of North India, rooted in the art of the Kathakaar—the storyteller. It brings together rhythmic footwork, spins, abhinaya, and storytelling. At Fankaar, training begins with posture, body grammar, tatkaar, and hastak, progressing to tukra, tihai, aamad, paran, and gat bhaav.
 
-At Fankaar, Kathak is the heart of the institute. Training begins with the body's grammar — posture, tatkaar, hastak — and grows into repertoire: tukdas and tihais, amad and paran, and finally gat-bhaav, where technique becomes storytelling. Founder **Vartika Tiwari** (20+ years in the art) leads the Kathak faculty across all four Jaipur branches and online.
-
-Students may learn purely for love of the form, or take the structured exam path with annual examinations through Bhatkhande, Gandharva Mahavidyalaya and Pracheen Kala Kendra— credentials recognised across India. Every student, exam-bound or not, performs: our recitals and showcases are part of the training, not an afterthought.
+With 20+ years in the art form, Founder-Director Vartika Tiwari leads Kathak training across all four Jaipur branches and online. Students can learn for personal enrichment or follow a structured exam pathway through Bhatkhande Sangit Vidyapeeth, Lucknow; Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai; Pracheen Kala Kendra, Chandigarh. These qualifications are recognized across India. Every student-whether pursuing examinations or learning for personal growth participates in recitals and showcases, making performance an integral part of the training, nor and afterthought.
