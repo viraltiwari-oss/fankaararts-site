@@ -23,8 +23,8 @@ timings:
 courses:
   - kathak
   - hindustani-vocal
-  - Guitar
-  - Keyboard
+  - guitar
+  - keyboard
 faculty:
   - Vartika Tiwari
   - Rahul Bhalia
