@@ -1,5 +1,5 @@
 ---
-title: Three-Day Hindustani Classical Music - Vocal Workshop by Rahul Bhaliya
+title: "Three-Day Hindustani Vocal Music "
 start: 2026-06-07T10:00:00.000+05:30
 end: 2026-06-09T12:00:00.000+05:30
 mode: In-person
