@@ -1,16 +1,16 @@
 ---
-name: Mriganki Sharma
-role: Assistant Instructor- Kathak
-credentials: Master of Performing Arts (Kathak) – Raja Mansingh Tomar Music &
-  Arts University (Pursuing) (p. 1)Visharad & MA Diploma in Kathak – Pracheen
-  Kala Kendra & Bhatkhande Sangeet Vidyapeeth (p. 1)Pravashika Poorna in Kathak
-  – Akhil Bharatiya Gandharv Mahavidhayalaya Mandal (p. 1)Kathak Instructor &
-  Intern – Fankaar Arts (p. 1)Former Dance Teacher – Jayshree Periwal Global
-  School (p. 1)Assistant Choreographer – Heirs of the Peacock Throne & B. Lal
-  Institute (p. 1)
+name: Mrigankee Sharma
+role: Assistant Instructor - Kathak
+credentials: Pursuing M.P.A. (Kathak) at Raja Mansingh Tomar Music and Arts
+  University, Gwalior, Mrigankee holds an M.A. Diploma in Kathak, Visharad, and
+  Madhyama Pratham from Bhatkhande Sangeet Vidyapeeth, Pracheen Kala Kendra,
+  Chandigarh, and Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai,
+  respectively. She is a Kathak Instructor & Intern at Fankaar Institute of
+  Performing Arts, with prior experience as a Dance Teacher and Assistant
+  Choreographer.
 branches:
-  - malviya-nagar
-photo: /src/assets/uploads/img_3107.jpg
+  - Malviya Nagar
+photo: /src/assets/uploads/lsp06308.jpg
 order: 3
 ---
-**Mrigankee Sharma** is a professional Kathak Artist and Indian Classical Dancer with a decade of expertise in the performing arts (p. 1). She holds an MA Diploma in Kathak from Bhatkhande Sangeet Vidyapeeth, a Pravashika Poorna, and a Visharad credential in the discipline (p. 1). Currently pursuing a Master of Performing Arts at Raja Mansingh Tomar Music & Arts University, Mrigankee serves as an instructor and intern at Fankaar Arts (p. 1). A seasoned stage artist, her portfolio features numerous high-profile regional showcases, including recurring performances at the prestigious Faag Utsav at Govind Dev Ji Temple (p. 1). She brings technical precision, structured educational expertise, and deep cultural knowledge to the Fankaar faculty (p. 1).
+**Mrigankee Sharma** is a professional Kathak artist and Indian classical dancer with a decade of expertise in the performing arts. She holds an M.A. Diploma in Kathak from Bhatkhande Sangeet Vidyapeeth, Lucknow; Madhyama Pratham from Akhil Bharatiya Gandharva Mahavidyalaya Mandal, Mumbai; and Visharad from Pracheen Kala Kendra, Chandigarh. She is currently pursuing a Master of Performing Arts in Kathak from Raja Mansingh Tomar Music and Arts University, Gwalior. She serves as an Instructor and Intern at Fankaar Institute of Performing Arts and is an accomplished stage artist, with performances across prominent regional platforms, including recurring appearances at the prestigious Faag Utsav at Govind Dev ji Temple, Jaipur. She brings technical precision, structured teaching expertise, and a deep understanding of cultural traditions to the Fankaar faculty.
