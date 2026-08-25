@@ -2,7 +2,11 @@
 title: Govind Dev Ji Faag Utsav '25
 date: 2025-03-07
 type: Recital
-gallery: []
+cover: /src/assets/uploads/1787650457171.jpg
+gallery:
+  - /src/assets/uploads/1787650457199.jpg
+  - /src/assets/uploads/1787650457181.jpg
+  - /src/assets/uploads/1787650457208.jpg
 placeholder: false
 seo:
   description: Fankaar Institute of Performing Arts students presented Kathak
