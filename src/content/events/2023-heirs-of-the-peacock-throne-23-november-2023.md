@@ -1,7 +1,11 @@
 ---
-title: Heirs of the Peacock Throne - 23 November 2023
+title: Heirs of the Peacock Throne '23
 date: 2023-11-23
 type: Showcase
+cover: /src/assets/uploads/1787647427030.jpg
+gallery:
+  - /src/assets/uploads/1787647427042.jpg
+  - /src/assets/uploads/1787647427030.jpg
 placeholder: false
 seo:
   title: "Heirs of the Peacock Throne | Fankaar Institute of Performing Arts  "
