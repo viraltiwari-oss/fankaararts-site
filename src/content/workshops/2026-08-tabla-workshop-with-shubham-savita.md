@@ -1,5 +1,5 @@
 ---
-title: "Tabla Workshop  "
+title: Tabla Workshop '26
 start: 2026-06-20T10:00:00.000+05:30
 mode: In-person
 venue: Malviya Nagar
