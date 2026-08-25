@@ -5,6 +5,13 @@ type: Showcase
 cover: /src/assets/uploads/1787592734258.jpg
 gallery:
   - /src/assets/uploads/1787592807858.jpg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.23-pm-1-.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.26-pm.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.27-pm.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.25-pm.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.27-pm-2-.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.26-pm-1-.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.27-pm-1-.jpeg
 placeholder: false
 seo:
   description: Nadanta 22 by Fankaar Institute featured Ganesh Vandana, Krishna
