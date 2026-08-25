@@ -1,11 +1,11 @@
 ---
-title: Beginner Kathak Workshop | Nirman Nagar | 2024
+title: Beginner Kathak Workshop '24
 start: 2024-06-15T11:00:00.000+05:30
 end: 2024-06-20T12:00:00.000+05:30
 mode: In-person
 venue: Nirman Nagar Branch
 fee: On enquiry
-image: /src/assets/uploads/529e0b89-6ae5-4bb5-9bd9-d3e4e92ee710.jpg
+image: /src/assets/uploads/1787647833499.jpg
 seo:
   title: Beginner Kathak Workshop in Nirman Nagar | Fankaar
   description: Explore Fankaar's six-day Beginner Kathak Workshop held at the
