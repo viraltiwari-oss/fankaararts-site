@@ -3,7 +3,7 @@ title: Recipient of CCRT  Junior Scholarship 2023
 category: Scholar
 metric: ""
 date: "2023"
-image: /src/assets/uploads/whatsapp-image-2026-08-25-at-7.12.53-pm.jpeg
+image: /src/assets/uploads/whatsapp-image-2026-08-25-at-7.35.36-pm.jpeg
 placeholder: false
 order: 1
 ---
