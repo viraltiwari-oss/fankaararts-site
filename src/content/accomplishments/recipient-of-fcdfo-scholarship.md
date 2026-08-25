@@ -1,5 +1,5 @@
 ---
-title: Recipient of FCDFO Scholarship
+title: Recipient of FCDFO Scholarship 2025
 category: Scholar
 date: "2025"
 image: /src/assets/uploads/whatsapp-image-2026-08-25-at-1.06.23-pm.jpeg
