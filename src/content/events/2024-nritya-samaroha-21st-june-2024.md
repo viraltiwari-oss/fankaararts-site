@@ -6,6 +6,7 @@ cover: /src/assets/uploads/whatsapp-image-2026-08-25-at-12.59.17-pm.jpeg
 gallery:
   - /src/assets/uploads/dsc02809-2.jpeg
   - /src/assets/uploads/whatsapp-image-2026-08-25-at-12.59.16-pm.jpeg
+  - /src/assets/uploads/1787643137179-1-.jpg
 placeholder: false
 seo:
   description: Fankaar’s Nritya Samaroha marked the culmination of its Beginner
