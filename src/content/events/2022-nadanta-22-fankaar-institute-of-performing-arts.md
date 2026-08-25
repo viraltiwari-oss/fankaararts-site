@@ -1,5 +1,5 @@
 ---
-title: NADANTA '22 | Fankaar Institute of Performing Arts
+title: NADANTA '22 |
 date: 2022-10-20
 type: Showcase
 cover: /src/assets/uploads/1787592734258.jpg
