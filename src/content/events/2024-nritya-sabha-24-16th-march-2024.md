@@ -1,11 +1,12 @@
 ---
-title: Nritya Sabha '24 - 16th March 2024
+title: "Nritya Sabha '24 "
 date: 2024-03-16
 type: Showcase
 cover: /src/assets/uploads/1787643084973.jpg
 gallery:
   - /src/assets/uploads/rav02182.jpg
   - /src/assets/uploads/rav02779.jpg
+  - /src/assets/uploads/1787647649715.jpg
 placeholder: false
 seo:
   description: Fankaar students presented Ganesh Vandana, Saraswati Vandana, Shiv
