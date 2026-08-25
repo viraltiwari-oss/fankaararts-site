@@ -1,10 +1,11 @@
 ---
-title: "Three-Day Hindustani Vocal Music "
+title: Three-Day Hindustani Vocal Music Workshop '26
 start: 2026-06-07T10:00:00.000+05:30
 end: 2026-06-09T12:00:00.000+05:30
 mode: In-person
 venue: "Malviya Nagar "
 fee: On enquiry
+image: /src/assets/uploads/whatsapp-image-2026-08-25-at-12.59.16-pm.jpeg
 seo:
   title: Hindustani Vocal Music Workshop | Fankaar Jaipur
   description: A three-day Hindustani vocal music workshop at Fankaar, Jaipur, led
