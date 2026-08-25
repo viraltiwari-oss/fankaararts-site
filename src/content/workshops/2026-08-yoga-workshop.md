@@ -1,5 +1,5 @@
 ---
-title: Yoga Workshop
+title: Yoga Workshop '26
 start: 2026-06-07T08:00:00.000+05:30
 end: 2026-06-07T09:30:00.000+05:30
 mode: In-person
