@@ -1,7 +1,7 @@
 ---
 title: Guru Poornima '23
 date: 2023-07-03
-type: Recital
+type: Celebration
 placeholder: false
 seo:
   title: Guru Purnima 2023 | Fankaar Institute of Performing Arts
