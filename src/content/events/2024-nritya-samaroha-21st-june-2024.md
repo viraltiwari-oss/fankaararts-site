@@ -1,5 +1,5 @@
 ---
-title: Nritya Samaroha | 21st June 2024
+title: Nritya Samaroha '24
 date: 2024-06-21
 type: Showcase
 cover: /src/assets/uploads/whatsapp-image-2026-08-25-at-12.59.17-pm.jpeg
