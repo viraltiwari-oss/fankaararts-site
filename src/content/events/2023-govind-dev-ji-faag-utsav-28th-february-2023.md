@@ -1,5 +1,5 @@
 ---
-title: Govind Dev Ji Faag Utsav - 28th February 2023
+title: Govind Dev Ji Faag Utsav ' 23
 date: 2023-02-28
 type: Showcase
 cover: /src/assets/uploads/whatsapp-image-2026-08-25-at-1.15.47-pm.jpeg
