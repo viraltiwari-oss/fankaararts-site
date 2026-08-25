@@ -14,4 +14,4 @@ seo:
 ---
 NADANTA'22 was organized by Fankaar Institute of Performing Arts on 20 October 2022, bringing together students in a vibrant celebration of Indian classical dance and storytelling. The programme began with a graceful Ganesh Vandana, setting the tone for an evening of rhythm, expression and devotion.
 
-The students then presented Krishna Leela through the playful episode of Makhan Chori, followed by a presentation of Shuddha Kathak showcasing rhythmic footwork and traditional movement. The evening concluded with a soulful Ram Vandana, bringing the performance to a meaningful and devotional close.
+The students then presented Krishna Leela through the playful episode of Makhan Chori, followed by a presentation of Shudha Kathak showcasing rhythmic footwork and traditional movement. The evening concluded with a soulful Ram Vandana, bringing the performance to a meaningful and devotional close.
