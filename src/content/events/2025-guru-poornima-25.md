@@ -4,8 +4,8 @@ date: 2025-07-10
 type: Celebration
 placeholder: false
 seo:
-  title: Guru Purnima 2025 at Fankaar | A Tribute to the Gurus
-  description: Fankaar celebrated Guru Purnima on 10 July 2025 with dance, music
+  title: Guru Poornima 2025 at Fankaar | A Tribute to the Gurus
+  description: Fankaar celebrated Guru Poornima on 10 July 2025 with dance, music
     and heartfelt gratitude, honouring the Gurus and the Guru-Shishya tradition.
 ---
 Guru Poornima at Fankaar on 10 July 2025 was a celebration of gratitude and reverence for the Gurus who illuminate the path of artistic learning. The occasion recognised the profound relationship between Guru and disciple and the wisdom that shapes an artist’s journey.
