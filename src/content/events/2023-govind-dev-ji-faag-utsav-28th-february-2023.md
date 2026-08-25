@@ -2,6 +2,11 @@
 title: Govind Dev Ji Faag Utsav - 28th February 2023
 date: 2023-02-28
 type: Showcase
+cover: /src/assets/uploads/whatsapp-image-2026-08-25-at-1.15.47-pm.jpeg
+gallery:
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.15.45-pm.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.15.47-pm.jpeg
+  - /src/assets/uploads/whatsapp-image-2026-08-25-at-1.15.48-pm.jpeg
 placeholder: false
 seo:
   title: Govind Dev Ji Faag Utsav 2023 | Fankaar Institute of Performing Arts
