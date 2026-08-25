@@ -1,5 +1,5 @@
 ---
-title: Scholarship Awardees
+title: "Recipient of CCRT  Junior Scholarship "
 category: Scholar
 metric: ""
 date: "2023"
